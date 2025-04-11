@@ -2,6 +2,7 @@ import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
+import SelectInput from '@/Components/SelectInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, Link, useForm } from '@inertiajs/react';
 
@@ -11,7 +12,14 @@ export default function Register() {
         email: '',
         password: '',
         password_confirmation: '',
+        role: '',
     });
+
+    const roles = [
+        { value: '', label: '' },
+        { value: 'manufacturer', label: 'Manufacturer' },
+        { value: 'user', label: 'User' },
+    ];
 
     const submit = (e) => {
         e.preventDefault();
@@ -27,6 +35,23 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
+                    <InputLabel htmlFor="role" value="Role" />
+
+                    <SelectInput
+                        id="role"
+                        name="role"
+                        value={data.role}
+                        className="mt-1 block w-full"
+                        isFocused
+                        options={roles}
+                        onChange={(e) => setData('role', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.role} className="mt-2" />
+                </div>
+
+                <div className='mt-4'>
                     <InputLabel htmlFor="name" value="Name" />
 
                     <TextInput
@@ -35,7 +60,6 @@ export default function Register() {
                         value={data.name}
                         className="mt-1 block w-full"
                         autoComplete="name"
-                        isFocused={true}
                         onChange={(e) => setData('name', e.target.value)}
                         required
                     />
