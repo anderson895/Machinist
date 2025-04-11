@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Middleware\RoleMiddleware;
 
+use App\Models\User;
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -18,6 +20,14 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/manage-user', function () {
+    $users = User::all();
+
+    return Inertia::render('Admin/ManageUser', [
+        'users' => $users
+    ]);
+})->middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])->name('manage-user');
 
 Route::get('/test-page', function () {
     return Inertia::render('TestPage');

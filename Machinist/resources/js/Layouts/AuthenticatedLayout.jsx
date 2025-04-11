@@ -30,6 +30,16 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Dashboard
                                 </NavLink>
+
+                                {user.role == 'admin' && (
+                                    <NavLink
+                                        href={route('manage-user')}
+                                        active={route().current('manage-user')}
+                                    >
+                                        Manage User
+                                    </NavLink>
+                                )}
+                                
                                 <NavLink
                                     href={route('test-page')}
                                     active={route().current('test-page')}
@@ -140,6 +150,16 @@ export default function AuthenticatedLayout({ header, children }) {
                         >
                             Dashboard
                         </ResponsiveNavLink>
+
+                        {user.role == 'admin' && (
+                            <ResponsiveNavLink
+                                href={route('manage-user')}
+                                active={route().current('manage-user')}
+                            >
+                                Manage User
+                            </ResponsiveNavLink>
+                        )}
+
                         <ResponsiveNavLink
                             href={route('test-page')}
                             active={route().current('test-page')}
