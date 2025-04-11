@@ -1,12 +1,15 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 
 export default function TestPage() {
+    const { auth } = usePage().props;
+    const user = auth.user;
+
     return (
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Test Page
+                    Test Page { user?.role == 'admin' ? "Admin" : " No Access" }
                 </h2>
             }
         >

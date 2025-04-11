@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Middleware\RoleMiddleware;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -20,7 +21,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/test-page', function () {
     return Inertia::render('TestPage');
-})->middleware(['auth', 'verified'])->name('test-page');
+})->middleware(['auth', 'verified', RoleMiddleware::class . ':admin,test,user'])->name('test-page');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
