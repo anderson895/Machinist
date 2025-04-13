@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', RoleMiddleware::class . ':admin,manufacturer,user'])->name('dashboard');
 
 
 
@@ -59,7 +59,9 @@ Route::get('/test-page', function () {
     return Inertia::render('TestPage');
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin,test,user'])->name('test-page');
 
-
+Route::get('/not-approved', function () {
+    return Inertia::render('Auth/NotApproved');
+})->middleware(['auth', 'verified'])->name('not-approved');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

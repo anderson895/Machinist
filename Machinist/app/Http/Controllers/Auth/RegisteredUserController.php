@@ -24,6 +24,18 @@ class RegisteredUserController extends Controller
         return Inertia::render('Auth/Register');
     }
 
+    private function storeUserFile($file, $userId, $label)
+    {
+        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('uploads'), $filename);
+
+        UserFile::create([
+            'user_id' => $userId,
+            'file_name' => $filename,
+            'label' => $label,
+        ]);
+    }
+
     /**
      * Handle an incoming registration request.
      *
@@ -44,22 +56,27 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
-            'contact_no' => $request->contact_no
+            'contact_no' => $request->contact_no,
+            'contact_person' => $request->contact_person,
         ]);
-        
+
         if ($request->hasFile('valid_id')) {
-            $file = $request->file('valid_id');
-            $filename = uniqid() . '.' . $file->getClientOriginalExtension();
-        
-            $file->move(public_path('uploads'), $filename);
-        
-            UserFile::create([
-                'user_id' => $user->id,
-                'file_name' => $filename,
-                'label' => 'Valid ID',
-            ]);
+            $this->storeUserFile($request->file('valid_id'), $user->id, 'Valid ID');
         }
-        
+
+        if ($user->role == 'manufacturer') {
+            if ($request->hasFile('business_permit')) {
+                $this->storeUserFile($request->file('business_permit'), $user->id, 'Business Permit');
+            }
+
+            if ($request->hasFile('company_profile')) {
+                $this->storeUserFile($request->file('company_profile'), $user->id, 'Company Profile');
+            }
+
+            if ($request->hasFile('location_map')) {
+                $this->storeUserFile($request->file('location_map'), $user->id, 'Location Map');
+            }
+        }
 
         event(new Registered($user));
 

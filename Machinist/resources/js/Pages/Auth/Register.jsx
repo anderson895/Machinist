@@ -16,12 +16,16 @@ export default function Register() {
         role: "",
         contact_no: "",
         valid_id: null,
+        contact_person: "",
+        business_permit: null,
+        company_profile: null,
+        location_map: null,
     });
 
     const roles = [
         { value: "", label: "" },
-        { value: "manufacturer", label: "Manufacturer" },
         { value: "user", label: "User" },
+        { value: "manufacturer", label: "Manufacturer" },
     ];
 
     const submit = (e) => {
@@ -55,7 +59,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="name" value="Name" />
+                    <InputLabel htmlFor="name" value={data.role == "manufacturer" ? "Company Name" : "Name" } />
 
                     <TextInput
                         id="name"
@@ -69,6 +73,28 @@ export default function Register() {
 
                     <InputError message={errors.name} className="mt-2" />
                 </div>
+
+
+                {data.role == "manufacturer" && (
+                    <>
+                        <div className="mt-4">
+                            <InputLabel htmlFor="contact_person" value="Contact Person" />
+
+                            <TextInput
+                                id="contact_person"
+                                name="contact_person"
+                                value={data.contact_person}
+                                className="mt-1 block w-full"
+                                autoComplete="contact_person"
+                                onChange={(e) => setData("contact_person", e.target.value)}
+                                required
+                            />
+
+                            <InputError message={errors.contact_person} className="mt-2" />
+                        </div>
+                    </>
+                )}
+
 
                 <div className="mt-4">
                     <InputLabel htmlFor="contact_no" value="Contact no" />
@@ -88,7 +114,7 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="valid_id" value="Valid ID" />
+                    <InputLabel htmlFor="valid_id" value="Valid ID (Image)" />
 
                     <FileInput
                         id="valid_id"
@@ -102,6 +128,60 @@ export default function Register() {
 
                     <InputError message={errors.valid_id} className="mt-2" />
                 </div>
+
+
+                {data.role == "manufacturer" && (
+                    <>
+                        <div className="mt-4">
+                            <InputLabel htmlFor="business_permit" value="Business Permit (pdf)" />
+
+                            <FileInput
+                                id="business_permit"
+                                name="business_permit"
+                                value={data.business_permit}
+                                className="mt-1 block w-full"
+                                onChange={(e) => setData("business_permit", e.target.files[0])}
+                                accept="application/pdf"
+                                required
+                            />
+
+                            <InputError message={errors.business_permit} className="mt-2" />
+                        </div>
+
+                        <div className="mt-4">
+                            <InputLabel htmlFor="company_profile" value="Company Profile (pdf)" />
+
+                            <FileInput
+                                id="company_profile"
+                                name="company_profile"
+                                value={data.company_profile}
+                                className="mt-1 block w-full"
+                                onChange={(e) => setData("company_profile", e.target.files[0])}
+                                accept="application/pdf"
+                                required
+                            />
+
+                            <InputError message={errors.company_profile} className="mt-2" />
+                        </div>
+
+                        <div className="mt-4">
+                            <InputLabel htmlFor="location_map" value="Location Map (Image)" />
+
+                            <FileInput
+                                id="location_map"
+                                name="location_map"
+                                value={data.location_map}
+                                className="mt-1 block w-full"
+                                onChange={(e) => setData("location_map", e.target.files[0])}
+                                accept="image/png, image/jpeg"
+                                required
+                            />
+
+                            <InputError message={errors.location_map} className="mt-2" />
+                        </div>
+                    </>
+                )}
+
 
                 <div className="mt-4">
                     <InputLabel htmlFor="email" value="Email" />
