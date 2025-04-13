@@ -20,9 +20,11 @@ Route::get('/', function () {
 });
 
 
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 
 Route::get('/manage-user', function () {
@@ -32,7 +34,6 @@ Route::get('/manage-user', function () {
         'users' => $users
     ]);
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])->name('manage-user');
-
 
 Route::get('/manage-user-details', function (Request $request) {
     $userId = $request->query('id');
@@ -53,9 +54,11 @@ Route::post('/approve-user', function (Request $request) {
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin']);
 
 
+
 Route::get('/test-page', function () {
     return Inertia::render('TestPage');
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin,test,user'])->name('test-page');
+
 
 
 Route::middleware('auth')->group(function () {

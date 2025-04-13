@@ -13,6 +13,7 @@ export default function Register() {
         password: '',
         password_confirmation: '',
         role: '',
+        contact_no: '',
     });
 
     const roles = [
@@ -61,6 +62,23 @@ export default function Register() {
                         className="mt-1 block w-full"
                         autoComplete="name"
                         onChange={(e) => setData('name', e.target.value)}
+                        required
+                    />
+
+                    <InputError message={errors.name} className="mt-2" />
+                </div>
+
+                <div className='mt-4'>
+                    <InputLabel htmlFor="contact_no" value="Contact no" />
+
+                    <TextInput
+                        id="contact_no"
+                        name="contact_no"
+                        value={data.contact_no}
+                        className="mt-1 block w-full"
+                        autoComplete="contact_no"
+                        type="number"
+                        onChange={(e) => setData('contact_no', e.target.value)}
                         required
                     />
 
