@@ -19,24 +19,39 @@ export default function AuthenticatedLayout({ header, children }) {
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
+                                    <ApplicationLogo className="h-12" />
                                 </Link>
                             </div>
+                            
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
-                                    href={route('test-page')}
-                                    active={route().current('test-page')}
-                                >
-                                    Test Page
-                                </NavLink>
-                            </div>
+                            {user.is_approved == true && (
+                                <>
+                                    <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                        <NavLink
+                                            href={route('dashboard')}
+                                            active={route().current('dashboard')}
+                                        >
+                                            Dashboard
+                                        </NavLink>
+
+                                        {user.role == 'admin' && (
+                                            <NavLink
+                                                href={route('manage-user')}
+                                                active={route().current('manage-user')}
+                                            >
+                                                Manage User
+                                            </NavLink>
+                                        )}
+                                        
+                                        <NavLink
+                                            href={route('test-page')}
+                                            active={route().current('test-page')}
+                                        >
+                                            Test Page
+                                        </NavLink>
+                                    </div>
+                                </>
+                            )}
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
@@ -133,14 +148,33 @@ export default function AuthenticatedLayout({ header, children }) {
                         ' sm:hidden'
                     }
                 >
-                    <div className="space-y-1 pb-3 pt-2">
-                        <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
+
+                    {user.is_approved == true && (
+                        <div className="space-y-1 pb-3 pt-2">
+                            <ResponsiveNavLink
+                                href={route('dashboard')}
+                                active={route().current('dashboard')}
+                            >
+                                Dashboard
+                            </ResponsiveNavLink>
+
+                            {user.role == 'admin' && (
+                                <ResponsiveNavLink
+                                    href={route('manage-user')}
+                                    active={route().current('manage-user')}
+                                >
+                                    Manage User
+                                </ResponsiveNavLink>
+                            )}
+
+                            <ResponsiveNavLink
+                                href={route('test-page')}
+                                active={route().current('test-page')}
+                            >
+                                Test Page
+                            </ResponsiveNavLink>
+                        </div>
+                    )}
 
                     <div className="border-t border-gray-200 pb-1 pt-4">
                         <div className="px-4">

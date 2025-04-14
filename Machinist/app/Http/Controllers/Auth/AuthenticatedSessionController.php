@@ -33,6 +33,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = Auth::user();
+
+        if (!$user->is_approved) {
+            return redirect()->route('not-approved');
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
