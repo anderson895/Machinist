@@ -17,9 +17,34 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Welcome" />
             <div className="bg-white text-gray-800 min-h-screen">
 
+                {/* Header Banner */}
+                <div className="w-full flex items-center h-16 bg-gray-100 overflow-hidden">
+    {/* Logo on the left */}
+    <div className="w-full relative h-16 overflow-hidden">
+    {/* Banner Image (Background) */}
+    <img 
+        src="/images/header-banner.png" 
+        alt="Welcome to Machinist Banner" 
+        className="w-full h-full object-cover"
+    />
+
+    {/* Logo (Overlayed on top) */}
+    <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+        <img
+            src="/images/machinist-logo.png"
+            onError={handleImageError}
+            className="h-12 w-auto drop-shadow-md"
+            alt="Machinist Logo"
+        />
+    </div>
+</div>
+
+</div>
+
+
                 {/* Navbar */}
                 <nav className="flex justify-between items-center px-8 py-6 shadow-sm border-b border-gray-200">
-                    <div className="text-2xl font-bold text-gray-900">Machinist</div>
+                    <div className="text-2xl font-bold text-gray-900"></div>
                     <div className="space-x-6">
                         {auth.user ? (
                             <Link href={route('dashboard')} className="hover:text-gray-600">Dashboard</Link>
