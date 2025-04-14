@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Middleware\RoleMiddleware;
 
 use App\Models\User;
+use App\Models\UserFile;
 
 
 Route::get('/', function () {
@@ -39,8 +40,11 @@ Route::get('/manage-user-details', function (Request $request) {
     $userId = $request->query('id');
     $user = User::where('id', $userId)->first();
 
+    $files = UserFile::where('user_id', $userId)->get();
+
     return Inertia::render('Admin/ManageUserDetails', [
-        'user' => $user
+        'user' => $user,
+        'files' => $files
     ]);
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])->name('manage-user-details');
 
