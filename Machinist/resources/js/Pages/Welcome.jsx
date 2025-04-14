@@ -18,7 +18,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <div className="bg-gray-50 text-black/90 dark:bg-black dark:text-white/90 min-h-screen">
     {/* Navbar */}
     <nav className="flex justify-between items-center px-8 py-6">
-        <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">MyApp</div>
+        <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Machinist</div>
         <div className="space-x-6">
             {auth.user ? (
                 <Link href={route('dashboard')} className="hover:text-indigo-500">Login</Link>
@@ -56,7 +56,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             </div>
         </div>
         <img
-            src="/images/hero-placeholder.svg"
+            src="/images/machinist-logo.png"
             onError={handleImageError}
             className="max-w-md drop-shadow-lg dark:brightness-90"
             alt="Hero Illustration"
