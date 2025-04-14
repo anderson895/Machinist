@@ -82,6 +82,10 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        if (!$user->is_approved) {
+            return redirect()->route('not-approved');
+        }
+
         return redirect(route('dashboard', absolute: false));
     }
 }
