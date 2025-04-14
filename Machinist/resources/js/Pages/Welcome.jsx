@@ -19,27 +19,26 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                 {/* Header Banner */}
                 <div className="w-full flex items-center h-16 bg-gray-100 overflow-hidden">
-    {/* Logo on the left */}
-    <div className="w-full relative h-16 overflow-hidden">
-    {/* Banner Image (Background) */}
-    <img 
-        src="/images/header-banner.png" 
-        alt="Welcome to Machinist Banner" 
-        className="w-full h-full object-cover"
-    />
+                    {/* Logo on the left */}
+                    <div className="w-full relative h-16 overflow-hidden">
+                        {/* Banner Image (Background) */}
+                        <img 
+                            src="/images/header-banner.png" 
+                            alt="Welcome to Machinist Banner" 
+                            className="w-full h-full object-cover"
+                        />
 
-    {/* Logo (Overlayed on top) */}
-    <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-        <img
-            src="/images/machinist-logo.png"
-            onError={handleImageError}
-            className="h-12 w-auto drop-shadow-md"
-            alt="Machinist Logo"
-        />
-    </div>
-</div>
+                        {/* Logo (Overlayed on top) */}
+                        <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+                            <img
+                                src="/images/machinist-logo.png"
+                                className="h-12 w-auto drop-shadow-md"
+                                alt="Machinist Logo"
+                            />
+                        </div>
+                    </div>
 
-</div>
+                </div>
 
 
                 {/* Navbar */}
