@@ -23,7 +23,8 @@ export default function Register() {
     });
 
     const roles = [
-        { value: "user", label: "Buyer" },
+        { value: "", label: "" },
+        { value: "user", label: "User" },
         { value: "manufacturer", label: "Manufacturer" },
     ];
 
