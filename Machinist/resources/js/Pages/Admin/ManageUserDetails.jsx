@@ -91,14 +91,14 @@ export default function ManageUserDetails() {
 
                                 <div className="mt-5">
                                     <InputLabel
-                                        htmlFor="contact_number"
+                                        htmlFor="contact_no"
                                         value="Contact no."
                                     />
 
                                     <TextInput
-                                        id="contact_number"
+                                        id="contact_no"
                                         className="mt-1 block w-full"
-                                        value={user.contact_number}
+                                        value={user.contact_no}
                                         disabled
                                     />
                                 </div>

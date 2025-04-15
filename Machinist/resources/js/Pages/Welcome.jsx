@@ -21,7 +21,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Machinist</div>
         <div className="space-x-6">
             {auth.user ? (
-                <Link href={route('dashboard')} className="hover:text-indigo-500">Login</Link>
+                <Link href={route(auth.user.is_approved ? "dashboard" : "not-approved")} className="hover:text-indigo-500">Dashboard</Link>
             ) : (
                 <>
                 <Link href={route('login')} className="hover:text-indigo-500">Login</Link>
