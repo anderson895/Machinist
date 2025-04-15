@@ -2,6 +2,7 @@ import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
+import TextAreaInput from "@/Components/TextAreaInput";
 import InputError from "@/Components/InputError";
 import DateTimeInput from "@/Components/DateTimeInput";
 import SecondaryButton from "@/Components/SecondaryButton";
@@ -74,7 +75,9 @@ export default function PostInquiryForm({ user }) {
                                 value="Description"
                             />
 
-                            <TextInput
+
+
+                            <TextAreaInput
                                 id="description"
                                 name="description"
                                 className="mt-1 block w-full"

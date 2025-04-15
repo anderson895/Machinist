@@ -2,15 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Inquiry;
 use App\Models\InquiryFile;
 
+
 class InquiryController extends Controller
 {
     
+    public function get()
+    {
+        $inquiries = Inquiry::with(['files', 'user'])->get();
+
+        return Inertia::render('Inquiries', [
+            'inquiries' => $inquiries,
+        ]);
+    }
+
     public function store(Request $request)
     {
         $userId = auth()->id();
