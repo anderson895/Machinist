@@ -9,6 +9,9 @@ use App\Http\Middleware\RoleMiddleware;
 
 use App\Models\User;
 use App\Models\UserFile;
+use App\Models\Inquiry;
+
+use App\Http\Controllers\InquiryController;
 
 
 Route::get('/', function () {
@@ -56,6 +59,16 @@ Route::post('/approve-user', function (Request $request) {
 
     return back()->with('success', 'User approved successfully.');
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin']);
+
+
+
+Route::get('/inquiries', function () {
+    return Inertia::render('Inquiries');
+})->middleware(['auth', 'verified'])->name('inquiries');
+
+Route::post('/post-inquiry', [InquiryController::class, 'store'])
+    ->middleware(['auth', 'verified'])
+    ->name('inquiries.store');
 
 
 
