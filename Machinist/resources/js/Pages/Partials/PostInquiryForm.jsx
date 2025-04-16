@@ -75,8 +75,6 @@ export default function PostInquiryForm({ user }) {
                                 value="Description"
                             />
 
-
-
                             <TextAreaInput
                                 id="description"
                                 name="description"
@@ -176,14 +174,21 @@ export default function PostInquiryForm({ user }) {
                                 name="files"
                                 accept="image/png, image/jpeg, application/pdf"
                                 multiple
-                                onChange={(e) => setData("files", [...e.target.files])}
+                                onChange={(e) =>
+                                    setData("files", [...e.target.files])
+                                }
                                 required
                             />
 
-                            <InputError
-                                className="mt-2"
-                                message={errors.files}
-                            />
+                            {Object.entries(errors)
+                                .filter(([key]) => key.startsWith("files."))
+                                .map(([key, error]) => (
+                                    <InputError
+                                        key={key}
+                                        className="mt-2"
+                                        message={error}
+                                    />
+                                ))}
                         </div>
                     </div>
 
@@ -192,7 +197,7 @@ export default function PostInquiryForm({ user }) {
                             Cancel
                         </SecondaryButton>
 
-                        <PrimaryButton className="ms-3">Post</PrimaryButton>
+                        <PrimaryButton className="ms-3" disabled={processing}>Post</PrimaryButton>
                     </div>
                 </form>
             </Modal>

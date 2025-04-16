@@ -29,7 +29,7 @@ class InquiryController extends Controller
 
         $validated = $request->validate([
             'description' => 'required|string',
-            'delivery_time' => 'required|date',
+            'delivery_time' => 'required|date|after_or_equal:today',
             'mop' => 'required|string',
             'mod' => 'required|string',
             'files' => 'nullable|array',
