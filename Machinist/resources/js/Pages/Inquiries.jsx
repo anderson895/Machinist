@@ -1,12 +1,23 @@
 import PrimaryButton from "@/Components/PrimaryButton";
+import SelectInput from "@/Components/SelectInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
 import PostInquiryForm from "./Partials/PostInquiryForm";
 import InquiryComponent from "./Partials/InquiryComponent";
+import { useState } from "react";
 
 export default function Inquiries() {
     const user = usePage().props.auth.user;
     const inquiries = usePage().props.inquiries;
+
+    const [filter, setFilter] = useState("all");
+
+    const filteredInquiries = inquiries.filter((inquiry) => {
+        if (filter == "my inquiries") {
+            return inquiry.user_id == user.id;
+        }
+        return true;
+    });
 
     return (
         <AuthenticatedLayout
@@ -28,9 +39,22 @@ export default function Inquiries() {
         >
             <Head title="Inquiries" />
 
-            <div className="py-12">
+            <div className="py-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4 flex justify-end">
+                <div className="w-full md:w-[25%]">
+                    <SelectInput
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        options={[
+                            { value: "all", label: "All" },
+                            { value: "my inquiries", label: "My Inquiries" },
+                        ]}
+                    />
+                </div>
+            </div>
+
+            <div className="">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {inquiries.map((inquiry) => (
+                    {filteredInquiries.map((inquiry) => (
                         <div
                             key={`inquiry-container-${inquiry.id}`}
                             className="mb-5"
