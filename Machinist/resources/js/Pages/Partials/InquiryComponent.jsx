@@ -1,19 +1,11 @@
-import Modal from "@/Components/Modal";
-import PrimaryButton from "@/Components/PrimaryButton";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
-import TextAreaInput from "@/Components/TextAreaInput";
-import InputError from "@/Components/InputError";
-import DateTimeInput from "@/Components/DateTimeInput";
 import SecondaryButton from "@/Components/SecondaryButton";
-import SelectInput from "@/Components/SelectInput";
-import FileInput from "@/Components/FileInput";
+import PostOfferForm from "./PostOfferForm";
 
-import { useForm, router } from "@inertiajs/react";
-import { useRef, useState } from "react";
-import toast from "react-hot-toast";
+import { usePage } from "@inertiajs/react";
 
 export default function InquiryComponent({ inquiry }) {
+    const user = usePage().props.auth.user;
+
     const groupFilesByLabel = (files) => {
         return files.reduce((acc, file) => {
             if (!acc[file.label]) {
@@ -87,8 +79,18 @@ export default function InquiryComponent({ inquiry }) {
                                 </div>
                             )
                         )}
+                    </div>
+                </div>
+                <div className="p-6 text-gray-900 flex gap-1">
+                    <div className="flex gap-1">
+                        {user.role == "manufacturer" &&
+                            user.id != inquiry.user.id && (
+                                <PostOfferForm inquiry={inquiry} />
+                            )}
 
-                        <div></div>
+                        {user.role != "admin" && user.id == inquiry.user.id && (
+                            <SecondaryButton>Edit</SecondaryButton>
+                        )}
                     </div>
                 </div>
             </div>

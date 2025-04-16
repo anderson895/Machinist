@@ -71,8 +71,12 @@ Route::get('/inquiries', [InquiryController::class, 'get'])
     ->name('inquiries');
 
 Route::post('/post-inquiry', [InquiryController::class, 'store'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('inquiries.store');
+
+Route::post('/post-offer', [InquiryController::class, 'postOffer'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer'])
+    ->name('inquiries.postOffer');
 
 
 
