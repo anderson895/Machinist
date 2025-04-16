@@ -176,9 +176,7 @@ export default function PostInquiryForm({ user }) {
                                 name="files"
                                 accept="image/png, image/jpeg, application/pdf"
                                 multiple
-                                onChange={(e) =>
-                                    setData("files", e.target.files)
-                                }
+                                onChange={(e) => setData("files", [...e.target.files])}
                                 required
                             />
 
