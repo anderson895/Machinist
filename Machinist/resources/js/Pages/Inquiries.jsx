@@ -10,7 +10,9 @@ export default function Inquiries() {
     const user = usePage().props.auth.user;
     const inquiries = usePage().props.inquiries;
 
-    const [filter, setFilter] = useState("all");
+    const [filter, setFilter] = useState(
+        user.role == "user" ? "my inquiries" : "all"
+    );
 
     const filteredInquiries = inquiries.filter((inquiry) => {
         if (filter == "my inquiries") {
@@ -40,16 +42,21 @@ export default function Inquiries() {
             <Head title="Inquiries" />
 
             <div className="py-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4 flex justify-end">
-                <div className="w-full md:w-[25%]">
-                    <SelectInput
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        options={[
-                            { value: "all", label: "All" },
-                            { value: "my inquiries", label: "My Inquiries" },
-                        ]}
-                    />
-                </div>
+                {user.role == "manufacturer" && (
+                    <div className="w-full md:w-[25%]">
+                        <SelectInput
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            options={[
+                                { value: "all", label: "All" },
+                                {
+                                    value: "my inquiries",
+                                    label: "My Inquiries",
+                                },
+                            ]}
+                        />
+                    </div>
+                )}
             </div>
 
             <div className="">

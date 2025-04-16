@@ -20,10 +20,10 @@ class InquiryController extends Controller
     
     public function get()
     {
-        $inquiries = Inquiry::with(['files', 'user'])->orderBy('created_at', 'desc')->get();
+        $inquiries = Inquiry::with(['files', 'user', 'offerThreads.user', 'offerThreads.offers'])->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Inquiries', [
-            'inquiries' => $inquiries,
+            'inquiries' => $inquiries
         ]);
     }
 

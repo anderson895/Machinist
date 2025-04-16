@@ -1,5 +1,6 @@
 import SecondaryButton from "@/Components/SecondaryButton";
 import PostOfferForm from "./PostOfferForm";
+import OffersComponent from "./OffersComponent";
 
 import { usePage } from "@inertiajs/react";
 
@@ -89,7 +90,10 @@ export default function InquiryComponent({ inquiry }) {
                             )}
 
                         {user.role != "admin" && user.id == inquiry.user.id && (
-                            <SecondaryButton>Edit</SecondaryButton>
+                            <>
+                                <OffersComponent inquiry={inquiry} />
+                                <SecondaryButton>Edit</SecondaryButton>
+                            </>
                         )}
                     </div>
                 </div>
