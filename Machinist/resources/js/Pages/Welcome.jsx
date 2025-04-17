@@ -59,12 +59,14 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 {/* Hero Section */}
                 <section className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
                     <div className="max-w-xl">
-                        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
-                            Build better websites with <span className="text-gray-500">Tailwind</span>
-                        </h1>
-                        <p className="text-lg mb-8 text-gray-600">
-                            A utility-first CSS framework for rapidly building modern websites. Clean, fast, and customizable.
-                        </p>
+                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
+                        Connecting <span className="text-gray-500">clients</span> and <span className="text-gray-500">manufacturers</span> in one platform
+                    </h1>
+                    <p className="text-lg mb-8 text-gray-600">
+                        We make it easier and faster to find the right business partner—whether you're a manufacturer or a client.
+                    </p>
+
+
                         <div className="flex gap-4">
                             <Link
                                 href={route('register')}
@@ -91,23 +93,30 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 {/* Feature Section */}
                 <section id="learnMore" className="bg-gray-50 py-20 px-8">
                     <div className="max-w-5xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold mb-6 text-gray-900">Why Choose Tailwind?</h2>
+                        <h2 className="text-3xl font-bold mb-6 text-gray-900">Why Choose Machinist?</h2>
                         <div className="grid md:grid-cols-3 gap-10 mt-10 text-left">
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2 text-gray-800">Fast Development</h3>
-                                <p className="text-gray-600">Rapidly build modern websites without ever leaving your HTML.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2 text-gray-800">Fully Customizable</h3>
-                                <p className="text-gray-600">Tailwind is designed to be component-friendly and infinitely extendable.</p>
-                            </div>
-                            <div>
-                                <h3 className="text-xl font-semibold mb-2 text-gray-800">Responsive by Default</h3>
-                                <p className="text-gray-600">Tailwind’s responsive modifiers make designing for all screen sizes effortless.</p>
-                            </div>
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Grow Together</h3>
+                            <p className="text-gray-600">
+                            Whether you're a manufacturer or a client, Machinist helps you find the right partner to grow your business with confidence.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Built on Trust</h3>
+                            <p className="text-gray-600">
+                            We make connection simple, transparent, and reliable—so you can focus on what matters most: quality and results.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Opportunities Made Easy</h3>
+                            <p className="text-gray-600">
+                            Find clients. Discover manufacturers. With Machinist, the right opportunity is always within reach.
+                            </p>
+                        </div>
                         </div>
                     </div>
                 </section>
+
 
                 {/* Footer */}
                 <footer className="text-center py-8 border-t border-gray-200 mt-10 text-sm text-gray-500">
