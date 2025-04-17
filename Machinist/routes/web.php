@@ -62,10 +62,6 @@ Route::post('/approve-user', function (Request $request) {
 
 
 
-// Route::get('/inquiries', function () {
-//     return Inertia::render('Inquiries');
-// })->middleware(['auth', 'verified'])->name('inquiries');
-
 Route::get('/inquiries', [InquiryController::class, 'get'])
     ->middleware(['auth', 'verified'])
     ->name('inquiries');
@@ -77,6 +73,10 @@ Route::post('/post-inquiry', [InquiryController::class, 'store'])
 Route::post('/post-offer', [InquiryController::class, 'postOffer'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer'])
     ->name('inquiries.postOffer');
+
+Route::get('/offer-thread', [InquiryController::class, 'getOfferThread'])
+    ->middleware(['auth', 'verified'])
+    ->name('offer-thread');
 
 
 

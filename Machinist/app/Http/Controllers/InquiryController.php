@@ -80,11 +80,18 @@ class InquiryController extends Controller
             'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
+        $inquiry = Inquiry::find($validated['inquiry_id']);
+        $isInquirer = false;
+
+        if ($inquiry && $inquiry->user_id == $userId) {
+            $isInquirer = true;
+        }
+
         $offerThread = OfferThread::firstOrCreate([
             'user_id' => $userId,
             'inquiry_id' => $validated['inquiry_id'],
         ]);
-        
+    
 
         $offer = Offer::create([
             'thread_id' => $offerThread->id,
@@ -93,6 +100,7 @@ class InquiryController extends Controller
             'delivery_time' => $validated['delivery_time'],
             'mop' => $validated['mop'],
             'mod' => $validated['mod'],
+            'is_inquirer' => $isInquirer,
         ]);
 
 
@@ -113,4 +121,20 @@ class InquiryController extends Controller
         return redirect()->back()->with('success', 'Offer submitted successfully!');
     }
 
+
+    public function getOfferThread(Request $request)
+    {
+        $threadId = $request->query('threadId');
+
+        $offerThread = OfferThread::with(['user', 'inquiry', 'inquiry.user', 'inquiry.files', 'offers', 'offers.files'])
+        ->findOrFail($threadId);
+
+        return Inertia::render('OfferThread', [
+            'thread' => $offerThread
+        ]);
+
+        // return response()->json([
+        //     'thread' => $offerThread
+        // ]);
+    }
 }

@@ -14,10 +14,16 @@ class Offer extends Model
         'delivery_time',
         'mop',
         'mod',
+        'is_inquirer'
     ];
 
     public function thread(): BelongsTo
     {
         return $this->belongsTo(OfferThread::class, 'thread_id');
+    }
+
+    public function files()
+    {
+        return $this->hasMany(OfferFile::class, 'offer_id');
     }
 }
