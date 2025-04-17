@@ -2,10 +2,14 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import PostOfferForm from "./PostOfferForm";
 import OffersComponent from "./OffersComponent";
 
-import { usePage } from "@inertiajs/react";
+import { usePage, Link } from "@inertiajs/react";
 
 export default function InquiryComponent({ inquiry }) {
     const user = usePage().props.auth.user;
+
+    const myThread = inquiry.offer_threads.find(
+        (thread) => thread.user_id === user.id
+    );
 
     const groupFilesByLabel = (files) => {
         return files.reduce((acc, file) => {
@@ -84,14 +88,27 @@ export default function InquiryComponent({ inquiry }) {
                 </div>
                 <div className="p-6 text-gray-900 flex gap-1">
                     <div className="flex gap-1">
-                        {user.role == "manufacturer" &&
-                            user.id != inquiry.user.id && (
-                                <PostOfferForm inquiry={inquiry} />
-                            )}
+                        {user.role === "manufacturer" &&
+                            user.id !== inquiry.user.id &&
+                            !myThread && <PostOfferForm inquiry={inquiry} />}
+
+                        {user.role === "manufacturer" && myThread && (
+                            <Link
+                                href={route("offer-thread", {
+                                    threadId: myThread.id,
+                                })}
+                            >
+                                <SecondaryButton>View My Offer</SecondaryButton>
+                            </Link>
+                        )}
+
+                        {(user.role === "admin" ||
+                            user.id === inquiry.user.id) && (
+                            <OffersComponent inquiry={inquiry} />
+                        )}
 
                         {user.role != "admin" && user.id == inquiry.user.id && (
                             <>
-                                <OffersComponent inquiry={inquiry} />
                                 <SecondaryButton>Edit</SecondaryButton>
                             </>
                         )}
