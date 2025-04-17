@@ -67,17 +67,17 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         </p>
                         <div className="flex gap-4">
                             <Link
-                                href="#"
+                                href={route('register')}
                                 className="bg-gray-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-700 transition"
                             >
                                 Get Started
                             </Link>
-                            <Link
-                                href="#"
+                            <a
+                                href="#learnMore"
                                 className="border border-gray-300 text-gray-900 px-6 py-3 rounded-xl font-medium hover:bg-gray-100 transition"
                             >
                                 Learn More
-                            </Link>
+                            </a>
                         </div>
                     </div>
                     <img
@@ -89,7 +89,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 </section>
 
                 {/* Feature Section */}
-                <section className="bg-gray-50 py-20 px-8">
+                <section id="learnMore" className="bg-gray-50 py-20 px-8">
                     <div className="max-w-5xl mx-auto text-center">
                         <h2 className="text-3xl font-bold mb-6 text-gray-900">Why Choose Tailwind?</h2>
                         <div className="grid md:grid-cols-3 gap-10 mt-10 text-left">
@@ -111,7 +111,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
 
                 {/* Footer */}
                 <footer className="text-center py-8 border-t border-gray-200 mt-10 text-sm text-gray-500">
-                    © {new Date().getFullYear()} Machinist. Built with ❤️ and Tailwind.
+                    © {new Date().getFullYear()} Machinist
                 </footer>
             </div>
         </>
