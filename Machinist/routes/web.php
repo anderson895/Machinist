@@ -8,6 +8,10 @@ use Inertia\Inertia;
 use App\Http\Middleware\RoleMiddleware;
 
 use App\Models\User;
+use App\Models\UserFile;
+use App\Models\Inquiry;
+
+use App\Http\Controllers\InquiryController;
 
 
 Route::get('/', function () {
@@ -39,8 +43,11 @@ Route::get('/manage-user-details', function (Request $request) {
     $userId = $request->query('id');
     $user = User::where('id', $userId)->first();
 
+    $files = UserFile::where('user_id', $userId)->get();
+
     return Inertia::render('Admin/ManageUserDetails', [
-        'user' => $user
+        'user' => $user,
+        'files' => $files
     ]);
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])->name('manage-user-details');
 
@@ -52,6 +59,24 @@ Route::post('/approve-user', function (Request $request) {
 
     return back()->with('success', 'User approved successfully.');
 })->middleware(['auth', 'verified', RoleMiddleware::class . ':admin']);
+
+
+
+Route::get('/inquiries', [InquiryController::class, 'get'])
+    ->middleware(['auth', 'verified'])
+    ->name('inquiries');
+
+Route::post('/post-inquiry', [InquiryController::class, 'store'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('inquiries.store');
+
+Route::post('/post-offer', [InquiryController::class, 'postOffer'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('inquiries.postOffer');
+
+Route::get('/offer-thread', [InquiryController::class, 'getOfferThread'])
+    ->middleware(['auth', 'verified'])
+    ->name('offer-thread');
 
 
 

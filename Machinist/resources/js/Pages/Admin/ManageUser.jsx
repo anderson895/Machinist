@@ -8,7 +8,7 @@ export default function ManageUser() {
     const { users } = usePage().props;
 
     const [filter, setFilter] = useState("all");
-    
+
     const filteredUsers = users.filter((user) => {
         if (filter == "approved") {
             return user.is_approved == true;
@@ -18,29 +18,25 @@ export default function ManageUser() {
         return true;
     });
 
-    const viewUser = (id) => {
-        window.location.href = route('manage-user-details', { id });
-    };
-    
-
     return (
         <AuthenticatedLayout
             header={
                 <div className="flex items-center justify-between">
-                    
                     <h2 className="text-xl font-semibold leading-tight text-gray-800">
                         Manage User
                     </h2>
 
-                    <SelectInput
-                        value={filter}
-                        onChange={(e) => setFilter(e.target.value)}
-                        options={[
-                            { value: "all", label: "All Users" },
-                            { value: "approved", label: "Approved" },
-                            { value: "pending", label: "Pending" }
-                        ]}
-                    />
+                    <div>
+                        <SelectInput
+                            value={filter}
+                            onChange={(e) => setFilter(e.target.value)}
+                            options={[
+                                { value: "all", label: "All Users" },
+                                { value: "approved", label: "Approved" },
+                                { value: "pending", label: "Pending" },
+                            ]}
+                        />
+                    </div>
                 </div>
             }
         >
@@ -48,7 +44,6 @@ export default function ManageUser() {
 
             <div className="py-8">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-
                     <div className="relative flex flex-col overflow-scroll text-gray-700 bg-white shadow-md rounded-xl bg-clip-border max-h-[75vh]">
                         <table className="text-left table-auto">
                             <thead className="sticky top-0 bg-white border-b-2 border-blue-gray-50">
@@ -64,16 +59,39 @@ export default function ManageUser() {
                             <tbody>
                                 {filteredUsers.map((user) => (
                                     <tr key={user.id}>
-                                        <td className="p-4 border-b border-blue-gray-50">{user.id}</td>
-                                        <td className="p-4 border-b border-blue-gray-50">{user.name}</td>
-                                        <td className="p-4 border-b border-blue-gray-50">{user.email}</td>
-                                        <td className="p-4 border-b border-blue-gray-50">{user.role}</td>
                                         <td className="p-4 border-b border-blue-gray-50">
-                                            { user.is_approved ? <span className="text-blue-500">Approved</span> : <span className="text-yellow-500">Pending</span> }
+                                            {user.id}
                                         </td>
                                         <td className="p-4 border-b border-blue-gray-50">
-                                            <Link href={route('manage-user-details', { id: user.id })}>
-                                                <SecondaryButton>View Details</SecondaryButton>
+                                            {user.name}
+                                        </td>
+                                        <td className="p-4 border-b border-blue-gray-50">
+                                            {user.email}
+                                        </td>
+                                        <td className="p-4 border-b border-blue-gray-50">
+                                            {user.role}
+                                        </td>
+                                        <td className="p-4 border-b border-blue-gray-50">
+                                            {user.is_approved ? (
+                                                <span className="text-blue-500">
+                                                    Approved
+                                                </span>
+                                            ) : (
+                                                <span className="text-yellow-500">
+                                                    Pending
+                                                </span>
+                                            )}
+                                        </td>
+                                        <td className="p-4 border-b border-blue-gray-50">
+                                            <Link
+                                                href={route(
+                                                    "manage-user-details",
+                                                    { id: user.id }
+                                                )}
+                                            >
+                                                <SecondaryButton>
+                                                    View Details
+                                                </SecondaryButton>
                                             </Link>
                                         </td>
                                     </tr>
@@ -81,8 +99,6 @@ export default function ManageUser() {
                             </tbody>
                         </table>
                     </div>
-
-
                 </div>
             </div>
         </AuthenticatedLayout>

@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
 
     private function storeUserFile($file, $userId, $label)
     {
-        $filename = uniqid() . '.' . $file->getClientOriginalExtension();
+        $filename = 'registration-'.uniqid() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('uploads'), $filename);
 
         UserFile::create([

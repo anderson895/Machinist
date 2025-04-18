@@ -44,6 +44,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                         )}
                                         
                                         <NavLink
+                                            href={route('inquiries')}
+                                            active={route().current('inquiries')}
+                                        >
+                                            Inquiries
+                                        </NavLink>
+
+                                        <NavLink
                                             href={route('test-page')}
                                             active={route().current('test-page')}
                                         >
@@ -166,6 +173,13 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Manage User
                                 </ResponsiveNavLink>
                             )}
+
+                            <ResponsiveNavLink
+                                href={route('inquiries')}
+                                active={route().current('inquiries')}
+                            >
+                                Inquiries
+                            </ResponsiveNavLink>
 
                             <ResponsiveNavLink
                                 href={route('test-page')}
