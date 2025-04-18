@@ -13,7 +13,7 @@ import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import TextInput from "@/Components/TextInput";
 
-export default function PostOfferForm({ inquiry }) {
+export default function PostOfferForm({ inquiry, threadId }) {
     const [postingOffer, setPostingOffer] = useState(false);
 
     const postOffer = () => {
@@ -21,6 +21,7 @@ export default function PostOfferForm({ inquiry }) {
     };
 
     const { data, setData, post, processing, errors, reset } = useForm({
+        thread_id: threadId,
         inquiry_id: inquiry.id,
         description: "",
         price: 0,

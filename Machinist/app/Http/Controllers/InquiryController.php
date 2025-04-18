@@ -70,28 +70,31 @@ class InquiryController extends Controller
         $userId = auth()->id();
 
         $validated = $request->validate([
-            'inquiry_id' => 'required|int',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:1',
+            'thread_id'     => 'nullable|exists:offer_threads,id',
+            'inquiry_id'    => 'required|exists:inquiries,id',
+            'description'   => 'required|string',
+            'price'         => 'required|numeric|min:1',
             'delivery_time' => 'required|date|after_or_equal:today',
-            'mop' => 'required|string',
-            'mod' => 'required|string',
-            'files' => 'nullable|array',
-            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'mop'           => 'required|string',
+            'mod'           => 'required|string',
+            'files'         => 'nullable|array',
+            'files.*'       => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
 
-        $inquiry = Inquiry::find($validated['inquiry_id']);
-        $isInquirer = false;
 
-        if ($inquiry && $inquiry->user_id == $userId) {
-            $isInquirer = true;
-        }
-
-        $offerThread = OfferThread::firstOrCreate([
-            'user_id' => $userId,
-            'inquiry_id' => $validated['inquiry_id'],
-        ]);
+        $inquiry    = Inquiry::findOrFail($validated['inquiry_id']);
+        $isInquirer = $inquiry->user_id === $userId;
+        
+        if (empty($validated['thread_id'])) {
+            abort_if($isInquirer, 403, 'You cannot make an offer on your own inquiry.');
     
+            $offerThread = OfferThread::firstOrCreate([
+                'user_id'    => $userId,
+                'inquiry_id' => $inquiry->id,
+            ]);
+        } else {
+            $offerThread = OfferThread::findOrFail($validated['thread_id']);
+        }
 
         $offer = Offer::create([
             'thread_id' => $offerThread->id,
@@ -129,12 +132,20 @@ class InquiryController extends Controller
         $offerThread = OfferThread::with(['user', 'inquiry', 'inquiry.user', 'inquiry.files', 'offers', 'offers.files'])
         ->findOrFail($threadId);
 
+        $user = $request->user();
+
+        $isAdmin       = $user->role === 'admin';
+        $isInquirer    = $offerThread->inquiry->user_id === $user->id;
+        $isOfferMaker  = $offerThread->user_id === $user->id;
+
+        abort_unless(
+            $isAdmin || $isInquirer || $isOfferMaker,
+            403,
+            'You do not have permission to view this offer thread.'
+        );
+
         return Inertia::render('OfferThread', [
             'thread' => $offerThread
         ]);
-
-        // return response()->json([
-        //     'thread' => $offerThread
-        // ]);
     }
 }

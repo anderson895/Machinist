@@ -1,5 +1,6 @@
 import PrimaryButton from "@/Components/PrimaryButton";
 import SelectInput from "@/Components/SelectInput";
+import PostOfferForm from "./Partials/PostOfferForm";
 import OfferComponent from "./Partials/OfferComponent";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, usePage } from "@inertiajs/react";
@@ -8,10 +9,11 @@ import InquiryComponent from "./Partials/InquiryComponent";
 import { useState } from "react";
 
 export default function OfferThread() {
+    const user = usePage().props.auth.user;
+
     const thread = usePage().props.thread;
 
     const inquiry = thread.inquiry;
-
     const offers = thread.offers;
 
     const groupFilesByLabel = (files) => {
@@ -34,7 +36,7 @@ export default function OfferThread() {
         >
             <Head title="Offer Thread" />
 
-            <div className="">
+            <div className="pb-5">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div
                         key={"inquiry-" + inquiry.id}
@@ -111,7 +113,10 @@ export default function OfferThread() {
                         </h1>
 
                         {offers.map((offer) => (
-                            <div key={`offer-${offer.id}-component`}>
+                            <div
+                                key={`offer-${offer.id}-component`}
+                                className="mt-3"
+                            >
                                 <OfferComponent
                                     offer={offer}
                                     offeredByUser={
@@ -123,6 +128,19 @@ export default function OfferThread() {
                             </div>
                         ))}
                     </div>
+
+                    {user.role !== "admin" &&
+                        thread?.user &&
+                        inquiry.user &&
+                        (user.id === thread.user.id ||
+                            user.id === inquiry.user.id) && (
+                            <div className="mt-5 text-end">
+                                <PostOfferForm
+                                    inquiry={inquiry}
+                                    threadId={thread.id}
+                                />
+                            </div>
+                        )}
                 </div>
             </div>
         </AuthenticatedLayout>
