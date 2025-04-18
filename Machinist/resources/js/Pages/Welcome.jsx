@@ -15,22 +15,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
         <>
             <Head title="Welcome" />
-            <div className="bg-gray-50 text-black/90 dark:bg-black dark:text-white/90 min-h-screen">
-    {/* Navbar */}
-    <nav className="flex justify-between items-center px-8 py-6">
-        <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Machinist</div>
-        <div className="space-x-6">
-            {auth.user ? (
-                <Link href={route(auth.user.is_approved ? "dashboard" : "not-approved")} className="hover:text-indigo-500">Dashboard</Link>
-            ) : (
-                <>
-                <Link href={route('login')} className="hover:text-indigo-500">Login</Link>
-                <Link href={route('register')} className="hover:text-indigo-500">Register</Link>
-                </>
-            )}
-        </div>
-    </nav>
             <div className="bg-white text-gray-800 min-h-screen">
+
                 {/* Header Banner */}
                 <div className="w-full flex items-center h-16 bg-gray-100 overflow-hidden">
                     {/* Logo on the left */}
