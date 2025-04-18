@@ -30,66 +30,113 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             )}
         </div>
     </nav>
+            <div className="bg-white text-gray-800 min-h-screen">
+                {/* Header Banner */}
+                <div className="w-full flex items-center h-16 bg-gray-100 overflow-hidden">
+                    {/* Logo on the left */}
+                    <div className="w-full relative h-16 overflow-hidden">
+                        {/* Banner Image (Background) */}
+                        <img 
+                            src="/images/header-banner.png" 
+                            alt="Welcome to Machinist Banner" 
+                            className="w-full h-full object-cover"
+                        />
 
-    {/* Hero Section */}
-    <section className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
-        <div className="max-w-xl">
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
-                Build better websites with <span className="text-indigo-600 dark:text-indigo-400">Tailwind</span>
-            </h1>
-            <p className="text-lg mb-8 text-gray-600 dark:text-gray-400">
-                A utility-first CSS framework for rapidly building modern websites. Clean, fast, and customizable.
-            </p>
-            <div className="flex gap-4">
-                <Link
-                    href="#"
-                    className="bg-indigo-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-indigo-700 transition"
-                >
-                    Get Started
-                </Link>
-                <Link
-                    href="#"
-                    className="border border-indigo-600 text-indigo-600 px-6 py-3 rounded-xl font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900 transition"
-                >
-                    Learn More
-                </Link>
+                        {/* Logo (Overlayed on top) */}
+                        <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
+                            <img
+                                src="/images/machinist-logo.png"
+                                className="h-12 w-auto drop-shadow-md"
+                                alt="Machinist Logo"
+                            />
+                        </div>
+                    </div>
+
+                </div>
+
+
+                {/* Navbar */}
+                <nav className="flex justify-between items-center px-8 py-6 shadow-sm border-b border-gray-200">
+                    <div className="text-2xl font-bold text-gray-900"></div>
+                    <div className="space-x-6">
+                        {auth.user ? (
+                            <Link href={route('dashboard')} className="hover:text-gray-600">Dashboard</Link>
+                        ) : (
+                            <>
+                                <Link href={route('login')} className="hover:text-gray-600">Login</Link>
+                                <Link href={route('register')} className="hover:text-gray-600">Register</Link>
+                            </>
+                        )}
+                    </div>
+                </nav>
+
+                {/* Hero Section */}
+                <section className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
+                    <div className="max-w-xl">
+                    <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
+                        Connecting <span className="text-gray-500">clients</span> and <span className="text-gray-500">manufacturers</span> in one platform
+                    </h1>
+                    <p className="text-lg mb-8 text-gray-600">
+                        We make it easier and faster to find the right business partner—whether you're a manufacturer or a client.
+                    </p>
+
+
+                        <div className="flex gap-4">
+                            <Link
+                                href={route('register')}
+                                className="bg-gray-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-700 transition"
+                            >
+                                Get Started
+                            </Link>
+                            <a
+                                href="#learnMore"
+                                className="border border-gray-300 text-gray-900 px-6 py-3 rounded-xl font-medium hover:bg-gray-100 transition"
+                            >
+                                Learn More
+                            </a>
+                        </div>
+                    </div>
+                    <img
+                        src="/images/machinist-logo.png"
+                        onError={handleImageError}
+                        className="max-w-md drop-shadow-sm"
+                        alt="Hero Illustration"
+                    />
+                </section>
+
+                {/* Feature Section */}
+                <section id="learnMore" className="bg-gray-50 py-20 px-8">
+                    <div className="max-w-5xl mx-auto text-center">
+                        <h2 className="text-3xl font-bold mb-6 text-gray-900">Why Choose Machinist?</h2>
+                        <div className="grid md:grid-cols-3 gap-10 mt-10 text-left">
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Grow Together</h3>
+                            <p className="text-gray-600">
+                            Whether you're a manufacturer or a client, Machinist helps you find the right partner to grow your business with confidence.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Built on Trust</h3>
+                            <p className="text-gray-600">
+                            We make connection simple, transparent, and reliable—so you can focus on what matters most: quality and results.
+                            </p>
+                        </div>
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2 text-gray-800">Opportunities Made Easy</h3>
+                            <p className="text-gray-600">
+                            Find clients. Discover manufacturers. With Machinist, the right opportunity is always within reach.
+                            </p>
+                        </div>
+                        </div>
+                    </div>
+                </section>
+
+
+                {/* Footer */}
+                <footer className="text-center py-8 border-t border-gray-200 mt-10 text-sm text-gray-500">
+                    © {new Date().getFullYear()} Machinist
+                </footer>
             </div>
-        </div>
-        <img
-            src="/images/machinist-logo.png"
-            onError={handleImageError}
-            className="max-w-md drop-shadow-lg dark:brightness-90"
-            alt="Hero Illustration"
-        />
-    </section>
-
-    {/* Feature Section */}
-    <section className="bg-white dark:bg-gray-900 py-20 px-8">
-        <div className="max-w-5xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Why Choose Tailwind?</h2>
-            <div className="grid md:grid-cols-3 gap-10 mt-10">
-                <div>
-                    <h3 className="text-xl font-semibold mb-2">Fast Development</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Rapidly build modern websites without ever leaving your HTML.</p>
-                </div>
-                <div>
-                    <h3 className="text-xl font-semibold mb-2">Fully Customizable</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Tailwind is designed to be component-friendly and infinitely extendable.</p>
-                </div>
-                <div>
-                    <h3 className="text-xl font-semibold mb-2">Responsive by Default</h3>
-                    <p className="text-gray-600 dark:text-gray-400">Tailwind’s responsive modifiers make designing for all screen sizes effortless.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    {/* Footer */}
-    <footer className="text-center py-8 border-t dark:border-gray-800 mt-10 text-sm">
-        © {new Date().getFullYear()} MyApp. Built with ❤️ and Tailwind.
-    </footer>
-</div>
-
         </>
     );
 }
