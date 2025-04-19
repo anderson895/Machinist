@@ -70,6 +70,11 @@ Route::post('/post-inquiry', [InquiryController::class, 'store'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('inquiries.store');
 
+Route::post('/update-inquiry', [InquiryController::class, 'update'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('update-inquiry');
+
+
 Route::post('/post-offer', [InquiryController::class, 'postOffer'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('inquiries.postOffer');
