@@ -65,6 +65,62 @@ class InquiryController extends Controller
         return redirect()->back()->with('success', 'Inquiry submitted successfully!');
     }
 
+    public function update(Request $request)
+    {
+        $userId = auth()->id();
+
+        $validated = $request->validate([
+            'id' => 'required|exists:inquiries,id',
+            'description' => 'required|string',
+            'delivery_time' => 'required|date|after_or_equal:today',
+            'mop' => 'required|string',
+            'mod' => 'required|string',
+            'files' => 'nullable|array',
+            'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'deletedFiles' => 'nullable|array',
+            'deletedFiles.*' => 'integer|exists:inquiry_files,id',
+        ]);
+
+        $inquiry = Inquiry::where('id', $validated['id'])
+        ->where('user_id', $userId)
+        ->firstOrFail();
+
+        $inquiry->update([
+            'description' => $validated['description'],
+            'delivery_time' => $validated['delivery_time'],
+            'mop' => $validated['mop'],
+            'mod' => $validated['mod'],
+        ]);
+
+
+        if (!empty($validated['deletedFiles'])) {
+            foreach ($validated['deletedFiles'] as $fileId) {
+                $file = InquiryFile::find($fileId);
+                if ($file && file_exists(public_path("uploads/{$file->file_name}"))) {
+                    unlink(public_path("uploads/{$file->file_name}"));
+                }
+                $file?->delete();
+            }
+        }
+
+        if ($request->hasFile('files')) {
+            foreach ($request->file('files') as $file) {
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'inquiry-' . uniqid() . '.' . $extension;
+                $file->move(public_path('uploads'), $filename);
+
+                InquiryFile::create([
+                    'inquiry_id' => $inquiry->id,
+                    'file_name' => $filename,
+                    'label' => $extension,
+                ]);
+            }
+        }
+
+
+        return redirect()->back()->with('success', 'Inquiry updated successfully!');
+    }
+
     public function postOffer(Request $request)
     {
         $userId = auth()->id();
