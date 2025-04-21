@@ -69,7 +69,7 @@ export default function ManageUser() {
                                             {user.email}
                                         </td>
                                         <td className="p-4 border-b border-blue-gray-50">
-                                            {user.role}
+                                            {user.role == "user" ? "buyer" : user.role }
                                         </td>
                                         <td className="p-4 border-b border-blue-gray-50">
                                             {user.is_approved ? (
