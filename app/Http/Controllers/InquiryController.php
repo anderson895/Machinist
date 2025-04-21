@@ -13,6 +13,8 @@ use App\Models\InquiryFile;
 use App\Models\Offer;
 use App\Models\OfferThread;
 use App\Models\OfferFile;
+use App\Models\User;
+use App\Models\InquiryAllowedViewer;
 
 
 class InquiryController extends Controller
@@ -20,10 +22,14 @@ class InquiryController extends Controller
     
     public function get()
     {
-        $inquiries = Inquiry::with(['files', 'user', 'offerThreads.user', 'offerThreads.offers'])->orderBy('created_at', 'desc')->get();
+        $inquiries = Inquiry::with(['files', 'user', 'offerThreads.user', 'offerThreads.offers', 'allowedViewers.user'])->orderBy('created_at', 'desc')->get();
+        $users = User::where('role', 'manufacturer')
+        ->where('is_approved', true)
+        ->get();
 
         return Inertia::render('Inquiries', [
-            'inquiries' => $inquiries
+            'inquiries' => $inquiries,
+            'users' => $users
         ]);
     }
 
@@ -38,6 +44,8 @@ class InquiryController extends Controller
             'mod' => 'required|string',
             'files' => 'nullable|array',
             'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
+            'viewers' => 'nullable|array',
+            'viewers.*' => 'exists:users,id',
         ]);
 
         $inquiry = Inquiry::create([
@@ -47,6 +55,15 @@ class InquiryController extends Controller
             'mop' => $validated['mop'],
             'mod' => $validated['mod'],
         ]);
+
+        if (!empty($validated['viewers'])) {
+            foreach ($validated['viewers'] as $viewerId) {
+                InquiryAllowedViewer::create([
+                    'inquiry_id' => $inquiry->id,
+                    'user_id' => $viewerId,
+                ]);
+            }
+        }
 
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $file) {
@@ -79,6 +96,8 @@ class InquiryController extends Controller
             'files.*' => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
             'deletedFiles' => 'nullable|array',
             'deletedFiles.*' => 'integer|exists:inquiry_files,id',
+            'viewers' => 'nullable|array',
+            'viewers.*' => 'exists:users,id',
         ]);
 
         $inquiry = Inquiry::where('id', $validated['id'])
@@ -93,6 +112,17 @@ class InquiryController extends Controller
         ]);
 
 
+        $inquiry->allowedViewers()->delete();
+
+        if (!empty($validated['viewers'])) {
+            $inquiry->allowedViewers()->createMany(
+                collect($validated['viewers'])->map(fn ($viewerId) => [
+                    'user_id' => $viewerId,
+                ])->all()
+            );
+        }
+
+        
         if (!empty($validated['deletedFiles'])) {
             foreach ($validated['deletedFiles'] as $fileId) {
                 $file = InquiryFile::find($fileId);

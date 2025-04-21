@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function Inquiries() {
     const user = usePage().props.auth.user;
+    const userList = usePage().props.users;
     const inquiries = usePage().props.inquiries;
 
     const [filter, setFilter] = useState(
@@ -18,6 +19,18 @@ export default function Inquiries() {
         if (filter == "my inquiries") {
             return inquiry.user_id == user.id;
         }
+
+        if (
+            Array.isArray(inquiry.allowed_viewers) &&
+            inquiry.allowed_viewers.length > 0 &&
+            user.role == "manufacturer" &&
+            user.id != inquiry.user_id
+        ) {
+            return inquiry.allowed_viewers.some(
+                (viewer) => viewer.user_id === user.id
+            );
+        }
+
         return true;
     });
 
@@ -34,7 +47,7 @@ export default function Inquiries() {
                             Inquiries
                         </h2>
 
-                        <PostInquiryForm user={user} />
+                        <PostInquiryForm user={user} userList={userList} />
                     </div>
                 )
             }
@@ -66,7 +79,10 @@ export default function Inquiries() {
                             key={`inquiry-container-${inquiry.id}`}
                             className="mb-5"
                         >
-                            <InquiryComponent inquiry={inquiry} />
+                            <InquiryComponent
+                                inquiry={inquiry}
+                                userList={userList}
+                            />
                         </div>
                     ))}
                 </div>

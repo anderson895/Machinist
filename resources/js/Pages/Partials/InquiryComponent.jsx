@@ -5,7 +5,7 @@ import UpdateInquiryForm from "./UpdateInquiryForm";
 
 import { usePage, Link } from "@inertiajs/react";
 
-export default function InquiryComponent({ inquiry }) {
+export default function InquiryComponent({ inquiry, userList }) {
     const user = usePage().props.auth.user;
 
     const myThread = inquiry.offer_threads.find(
@@ -110,7 +110,7 @@ export default function InquiryComponent({ inquiry }) {
 
                         {user.role != "admin" && user.id == inquiry.user.id && (
                             <>
-                                <UpdateInquiryForm inquiry={inquiry} />
+                                <UpdateInquiryForm inquiry={inquiry} userList={userList} />
                             </>
                         )}
                     </div>
