@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::table('offers', function (Blueprint $table) {
             //
-            $table->boolean('is_inquirer')->default(false)->after('mod');
+            if (!Schema::hasColumn('offers', 'is_inquirer')) {
+                $table->boolean('is_inquirer')->default(false)->after('mod');
+            }
         });
     }
 

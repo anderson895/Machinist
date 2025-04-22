@@ -32,4 +32,9 @@ class Inquiry extends Model
     {
         return $this->hasMany(OfferThread::class);
     }
+
+    public function allowedViewers(): HasMany
+    {
+        return $this->hasMany(InquiryAllowedViewer::class);
+    }
 }

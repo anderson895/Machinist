@@ -8,16 +8,22 @@ import DateTimeInput from "@/Components/DateTimeInput";
 import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
+import MultiSelectInput from "@/Components/MultiSelectInput";
 
 import { useForm, router } from "@inertiajs/react";
 import { useRef, useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import DangerButton from "@/Components/DangerButton";
 
-export default function UpdateInquiryForm({ inquiry }) {
+export default function UpdateInquiryForm({ inquiry, userList }) {
+    const allowedViewers = inquiry.allowed_viewers.map((viewer) => viewer.user?.id);
+
+
     const [existingFiles, setExistingFiles] = useState(inquiry.files || []);
 
     const [updatingInquiry, setUpdatingInquiry] = useState(false);
+
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
     const updateInquiry = () => {
         setUpdatingInquiry(true);
@@ -31,6 +37,7 @@ export default function UpdateInquiryForm({ inquiry }) {
         mod: inquiry.mod,
         files: [],
         deletedFiles: [],
+        viewers: [],
     });
 
     useEffect(() => {
@@ -43,9 +50,11 @@ export default function UpdateInquiryForm({ inquiry }) {
                 mod: inquiry.mod,
                 files: [],
                 deletedFiles: [],
+                viewers: [],
             });
 
             setExistingFiles(inquiry.files || []);
+            setSelectedUsers(allowedViewers || []);
         }
     }, [updatingInquiry]);
 
@@ -74,6 +83,11 @@ export default function UpdateInquiryForm({ inquiry }) {
         setUpdatingInquiry(false);
     };
 
+    const handleUserSelection = (selectedValues) => {
+        setSelectedUsers(selectedValues);
+        setData("viewers", selectedValues);
+    };
+
     return (
         <>
             <SecondaryButton onClick={updateInquiry}>Update</SecondaryButton>
@@ -93,6 +107,30 @@ export default function UpdateInquiryForm({ inquiry }) {
                     </p>
 
                     <div>
+                        <div className="mt-5">
+                            <InputLabel
+                                htmlFor="viewers"
+                                value="Limit Manufacturer Viewers"
+                            />
+                            <MultiSelectInput
+                                id="viewers"
+                                name="viewers"
+                                selectedOptions={selectedUsers}
+                                onChange={handleUserSelection}
+                                options={userList.map((user) => ({
+                                    value: user.id,
+                                    label: user.name,
+                                }))}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                            />
+
+                            <InputError
+                                className="mt-2"
+                                message={errors.viewers}
+                            />
+                        </div>
+
                         <div className="mt-5">
                             <InputLabel
                                 htmlFor="description"

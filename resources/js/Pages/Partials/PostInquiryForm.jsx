@@ -8,13 +8,17 @@ import DateTimeInput from "@/Components/DateTimeInput";
 import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
+import MultiSelectInput from "@/Components/MultiSelectInput";
+import Select from "react-select";
 
 import { useForm, router } from "@inertiajs/react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
 
-export default function PostInquiryForm({ user }) {
+export default function PostInquiryForm({ user, userList }) {
     const [postingInquiry, setPostingInquiry] = useState(false);
+
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
     const postInquiry = () => {
         setPostingInquiry(true);
@@ -26,6 +30,7 @@ export default function PostInquiryForm({ user }) {
         mop: "",
         mod: "",
         files: [],
+        viewers: [],
     });
 
     const onPostInquiry = (e) => {
@@ -49,6 +54,11 @@ export default function PostInquiryForm({ user }) {
         setPostingInquiry(false);
     };
 
+    const handleUserSelection = (selectedValues) => {
+        setSelectedUsers(selectedValues);
+        setData("viewers", selectedValues);
+    };
+
     return (
         <>
             <PrimaryButton onClick={postInquiry}>Post Inquiry</PrimaryButton>
@@ -69,6 +79,30 @@ export default function PostInquiryForm({ user }) {
                     </p>
 
                     <div>
+                        <div className="mt-5">
+                            <InputLabel
+                                htmlFor="viewers"
+                                value="Limit Manufacturer Viewers"
+                            />
+                            <MultiSelectInput
+                                id="viewers"
+                                name="viewers"
+                                selectedOptions={selectedUsers}
+                                onChange={handleUserSelection}
+                                options={userList.map((user) => ({
+                                    value: user.id,
+                                    label: user.name,
+                                }))}
+                                className="mt-1 block w-full"
+                                isFocused={true}
+                            />
+
+                            <InputError
+                                className="mt-2"
+                                message={errors.viewers}
+                            />
+                        </div>
+
                         <div className="mt-5">
                             <InputLabel
                                 htmlFor="description"
@@ -197,7 +231,9 @@ export default function PostInquiryForm({ user }) {
                             Cancel
                         </SecondaryButton>
 
-                        <PrimaryButton className="ms-3" disabled={processing}>Post</PrimaryButton>
+                        <PrimaryButton className="ms-3" disabled={processing}>
+                            Post
+                        </PrimaryButton>
                     </div>
                 </form>
             </Modal>
