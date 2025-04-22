@@ -12,6 +12,7 @@ use App\Models\UserFile;
 use App\Models\Inquiry;
 
 use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\OrderController;
 
 
 Route::get('/', function () {
@@ -82,6 +83,12 @@ Route::post('/post-offer', [InquiryController::class, 'postOffer'])
 Route::get('/offer-thread', [InquiryController::class, 'getOfferThread'])
     ->middleware(['auth', 'verified'])
     ->name('offer-thread');
+
+
+
+Route::post('/order-offer', [OrderController::class, 'orderOffer'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('order-offer');
 
 
 

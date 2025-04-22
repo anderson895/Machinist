@@ -16,6 +16,8 @@ export default function OfferThread() {
     const inquiry = thread.inquiry;
     const offers = thread.offers;
 
+    const canOrder = usePage().props.canOrder;
+
     const groupFilesByLabel = (files) => {
         return files.reduce((acc, file) => {
             if (!acc[file.label]) {
@@ -124,6 +126,7 @@ export default function OfferThread() {
                                             ? inquiry.user
                                             : thread.user
                                     }
+                                    canOrder={canOrder}
                                 />
                             </div>
                         ))}
@@ -133,7 +136,8 @@ export default function OfferThread() {
                         thread?.user &&
                         inquiry.user &&
                         (user.id === thread.user.id ||
-                            user.id === inquiry.user.id) && (
+                            user.id === inquiry.user.id) &&
+                        canOrder == true && (
                             <div className="mt-5 text-end">
                                 <PostOfferForm
                                     inquiry={inquiry}

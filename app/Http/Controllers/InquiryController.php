@@ -15,6 +15,7 @@ use App\Models\OfferThread;
 use App\Models\OfferFile;
 use App\Models\User;
 use App\Models\InquiryAllowedViewer;
+use App\Models\Order;
 
 
 class InquiryController extends Controller
@@ -230,8 +231,13 @@ class InquiryController extends Controller
             'You do not have permission to view this offer thread.'
         );
 
+        $offerIds = $offerThread->offers->pluck('id');
+        $hasOrderedOffer = Order::whereIn('offer_id', $offerIds)->exists();
+        $canOrder = !$hasOrderedOffer;
+
         return Inertia::render('OfferThread', [
-            'thread' => $offerThread
+            'thread' => $offerThread,
+            'canOrder' => $canOrder
         ]);
     }
 }
