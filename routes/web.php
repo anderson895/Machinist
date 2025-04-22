@@ -1,7 +1,4 @@
 <?php
-//start cache removal library
-use Illuminate\Support\Facades\Artisan;
-//end cache removal library
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -101,15 +98,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
-Route::get('/clear-cache', function () {
-    Artisan::call('config:clear');
-    Artisan::call('route:clear');
-    Artisan::call('view:clear');
-    Artisan::call('cache:clear');
-    return "All Laravel caches cleared!";
-});
-
 
 require __DIR__.'/auth.php';
