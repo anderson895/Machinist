@@ -85,11 +85,19 @@ Route::get('/offer-thread', [InquiryController::class, 'getOfferThread'])
     ->name('offer-thread');
 
 
+    
+Route::get('/orders', [OrderController::class, 'get'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer'])
+    ->name('orders');
 
 Route::post('/order-offer', [OrderController::class, 'orderOffer'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('order-offer');
 
+
+ Route::get('/order-details', [OrderController::class, 'getOrderDetails'])
+    ->middleware(['auth', 'verified'])
+    ->name('order-details');
 
 
 Route::get('/test-page', function () {

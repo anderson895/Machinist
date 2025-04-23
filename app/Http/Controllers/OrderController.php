@@ -18,6 +18,33 @@ use App\Models\Order;
 
 class OrderController extends Controller
 {
+    public function get()
+    {
+        $userId = auth()->id();
+
+        $orders = Order::with([
+            'offer',
+            'offer.thread',
+            'offer.thread.user',
+            'offer.thread.inquiry',
+            'offer.thread.inquiry.user',
+            'offer.files'
+        ])
+        ->whereHas('offer.thread', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+        ->get();
+
+        // return response()->json([
+        //     'orders' => $orders
+        // ]);
+
+        return Inertia::render('Orders/Orders', [
+            'orders' => $orders
+        ]);
+
+    }
+
     public function orderOffer(Request $request)
     {
         $validated = $request->validate([
@@ -30,5 +57,26 @@ class OrderController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Order submitted successfully!');
+    }
+
+    public function getOrderDetails(Request $request)
+    {
+        $userId = auth()->id();
+        $id = $request->id;
+
+        $order = Order::with([
+            'offer',
+            'offer.thread',
+            'offer.thread.user',
+            'offer.thread.inquiry',
+            'offer.thread.inquiry.user',
+            'offer.files'
+        ])
+        ->where('id', $id)
+        ->first();
+
+        return Inertia::render('Orders/OrderDetails', [
+            'order' => $order
+        ]);
     }
 }
