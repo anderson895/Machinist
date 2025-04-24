@@ -1,11 +1,14 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
-import { useForm, router } from "@inertiajs/react";
-import { useRef, useState } from "react";
+
+import { router } from "@inertiajs/react";
+
+import { useState } from "react";
+
 import toast from "react-hot-toast";
 
-export default function OrderOfferForm({ offer, className = "" }) {
+export default function OrderOfferForm({ offer }) {
     const [orderingOffer, setOrderingOffer] = useState(false);
 
     const orderOffer = () => {
@@ -57,7 +60,9 @@ export default function OrderOfferForm({ offer, className = "" }) {
                             Cancel
                         </SecondaryButton>
 
-                        <PrimaryButton className="ms-3">Place Order</PrimaryButton>
+                        <PrimaryButton className="ms-3">
+                            Place Order
+                        </PrimaryButton>
                     </div>
                 </form>
             </Modal>

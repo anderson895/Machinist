@@ -4,14 +4,13 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import TextAreaInput from "@/Components/TextAreaInput";
+
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage, useForm, router } from "@inertiajs/react";
-import PostInquiryForm from "../Partials/PostInquiryForm";
-import InquiryComponent from "../Partials/InquiryComponent";
-import OrderComponent from "./Partials/OrderComponent";
-import { useState } from "react";
-import { LuDot } from "react-icons/lu";
+
+import { Head, usePage, useForm } from "@inertiajs/react";
+
 import toast from "react-hot-toast";
+
 import { useEffect } from "react";
 
 export default function OrderDetails() {

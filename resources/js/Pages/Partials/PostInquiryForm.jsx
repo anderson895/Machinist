@@ -1,7 +1,6 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 import TextAreaInput from "@/Components/TextAreaInput";
 import InputError from "@/Components/InputError";
 import DateTimeInput from "@/Components/DateTimeInput";
@@ -9,10 +8,11 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
 import MultiSelectInput from "@/Components/MultiSelectInput";
-import Select from "react-select";
 
-import { useForm, router } from "@inertiajs/react";
-import { useRef, useState } from "react";
+import { useForm } from "@inertiajs/react";
+
+import { useState } from "react";
+
 import toast from "react-hot-toast";
 
 export default function PostInquiryForm({ user, userList }) {

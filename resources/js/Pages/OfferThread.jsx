@@ -1,12 +1,9 @@
-import PrimaryButton from "@/Components/PrimaryButton";
-import SelectInput from "@/Components/SelectInput";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
+import { Head, usePage } from "@inertiajs/react";
+
 import PostOfferForm from "./Partials/PostOfferForm";
 import OfferComponent from "./Partials/OfferComponent";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
-import PostInquiryForm from "./Partials/PostInquiryForm";
-import InquiryComponent from "./Partials/InquiryComponent";
-import { useState } from "react";
 
 export default function OfferThread() {
     const user = usePage().props.auth.user;

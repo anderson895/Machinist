@@ -7,11 +7,13 @@ import DateTimeInput from "@/Components/DateTimeInput";
 import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
-
-import { useForm, router, usePage } from "@inertiajs/react";
-import { useRef, useState } from "react";
-import toast from "react-hot-toast";
 import TextInput from "@/Components/TextInput";
+
+import { useForm } from "@inertiajs/react";
+
+import { useState } from "react";
+
+import toast from "react-hot-toast";
 
 export default function PostOfferForm({ inquiry, threadId }) {
     const [postingOffer, setPostingOffer] = useState(false);

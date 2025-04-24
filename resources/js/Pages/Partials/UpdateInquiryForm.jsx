@@ -1,7 +1,6 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 import TextAreaInput from "@/Components/TextAreaInput";
 import InputError from "@/Components/InputError";
 import DateTimeInput from "@/Components/DateTimeInput";
@@ -9,15 +8,18 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
 import MultiSelectInput from "@/Components/MultiSelectInput";
-
-import { useForm, router } from "@inertiajs/react";
-import { useRef, useState, useEffect } from "react";
-import toast from "react-hot-toast";
 import DangerButton from "@/Components/DangerButton";
 
-export default function UpdateInquiryForm({ inquiry, userList }) {
-    const allowedViewers = inquiry.allowed_viewers.map((viewer) => viewer.user?.id);
+import { useForm } from "@inertiajs/react";
 
+import { useState, useEffect } from "react";
+
+import toast from "react-hot-toast";
+
+export default function UpdateInquiryForm({ inquiry, userList }) {
+    const allowedViewers = inquiry.allowed_viewers.map(
+        (viewer) => viewer.user?.id
+    );
 
     const [existingFiles, setExistingFiles] = useState(inquiry.files || []);
 

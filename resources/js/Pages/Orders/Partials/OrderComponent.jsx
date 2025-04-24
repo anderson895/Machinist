@@ -1,10 +1,7 @@
-import Modal from "@/Components/Modal";
-import SecondaryButton from "@/Components/SecondaryButton";
-
-import { useForm, router, usePage, Link } from "@inertiajs/react";
-import { useRef, useState } from "react";
+import { Link } from "@inertiajs/react";
 
 import { FaArrowRight } from "react-icons/fa";
+
 import { LuDot } from "react-icons/lu";
 
 export default function OrderComponent({ order }) {

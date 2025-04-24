@@ -1,10 +1,11 @@
-import PrimaryButton from "@/Components/PrimaryButton";
-import SelectInput from "@/Components/SelectInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
+import SelectInput from "@/Components/SelectInput";
+
 import { Head, usePage } from "@inertiajs/react";
-import PostInquiryForm from "../Partials/PostInquiryForm";
-import InquiryComponent from "../Partials/InquiryComponent";
+
 import OrderComponent from "./Partials/OrderComponent";
+
 import { useState } from "react";
 
 export default function Inquiries() {
