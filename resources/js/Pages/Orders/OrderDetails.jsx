@@ -188,6 +188,56 @@ export default function OrderDetails() {
                     </div>
                 </div>
             </form>
+
+        {/* 
+        to do: 
+
+        manufacturer update price then 
+        check mop and mod
+
+        total_price = order price that macufacturer can adjust but just put in the notes
+
+        
+        if mod is pick up then mop is cod / cop 
+                status are
+                    pending
+                    accepted / preparing your order
+                    rejected / reason in the notes
+                    preparing
+                    ready to pick up
+                    picked up
+
+        if mod is deliver then mop is cod / cop
+                status are
+                    pending
+                    accepted / preparing your order
+                    rejected / reason in the notes
+                    preparing
+                    ship
+                    delivered
+
+        
+        if mod is pick up then mop is online payment
+                status are
+                    pending
+                    waiting for payment // customer will upload proof of payment in the order details
+                    accepted / preparing your order
+                    rejected / reason in the notes
+                    preparing
+                    ready to pick up
+                    picked up
+        
+        if mod is deliver then mop is online payment
+                    pending
+                    waiting for payment // customer will upload proof of payment in the order details
+                    accepted / preparing your order
+                    rejected / reason in the notes
+                    preparing
+                    ship
+                    deivered
+
+        */}
+
         </AuthenticatedLayout>
     );
 }
