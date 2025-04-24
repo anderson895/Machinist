@@ -79,4 +79,27 @@ class OrderController extends Controller
             'order' => $order
         ]);
     }
+
+    public function updateOrder(Request $request)
+    {
+        $userId = auth()->id();
+
+        $validated = $request->validate([
+            'id' => 'required|exists:orders,id',
+            'status' => 'required|string',
+            'total_amount' => 'required|numeric|min:1',
+            'notes' => 'required|string',
+        ]);
+
+        $order = Order::where('id', $validated['id'])
+        ->firstOrFail();
+
+        $order->update([
+            'status' => $validated['status'],
+            'total_amount' => $validated['total_amount'],
+            'notes' => $validated['notes'],
+        ]);
+
+        return redirect()->back()->with('success', 'Order update submitted successfully!');
+    }
 }

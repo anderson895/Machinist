@@ -99,6 +99,11 @@ Route::post('/order-offer', [OrderController::class, 'orderOffer'])
     ->middleware(['auth', 'verified'])
     ->name('order-details');
 
+ Route::post('/save-order', [OrderController::class, 'updateOrder'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer'])
+    ->name('save-order');
+
+    
 
 Route::get('/test-page', function () {
     return Inertia::render('TestPage');
