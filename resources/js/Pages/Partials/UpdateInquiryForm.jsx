@@ -90,6 +90,12 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
         setData("viewers", selectedValues);
     };
 
+    useEffect(() => {
+        if (data.mod !== undefined) {
+            setData('mop', '');
+        }
+    }, [data.mod]);
+
     return (
         <>
             <SecondaryButton onClick={updateInquiry}>Update</SecondaryButton>
@@ -184,28 +190,6 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
                         </div>
 
                         <div className="mt-5">
-                            <InputLabel htmlFor="mop" value="Mode Of Payment" />
-
-                            <SelectInput
-                                id="mop"
-                                name="mop"
-                                value={data.mop}
-                                onChange={(e) => setData("mop", e.target.value)}
-                                options={[
-                                    { value: "", label: "" },
-                                    { value: "COD", label: "COD" },
-                                    {
-                                        value: "ONLINE PAYMENT",
-                                        label: "ONLINE PAYMENT",
-                                    },
-                                ]}
-                                required
-                            />
-
-                            <InputError className="mt-2" message={errors.mop} />
-                        </div>
-
-                        <div className="mt-5">
                             <InputLabel
                                 htmlFor="mod"
                                 value="Mode Of Delivery"
@@ -228,6 +212,41 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
                             />
 
                             <InputError className="mt-2" message={errors.mod} />
+                        </div>
+
+                        <div className="mt-5">
+                            <InputLabel htmlFor="mop" value="Mode Of Payment" />
+
+                            <SelectInput
+                                id="mop"
+                                name="mop"
+                                value={data.mop}
+                                onChange={(e) => setData("mop", e.target.value)}
+                                options={
+                                    !data.mod
+                                        ? [{ value: "", label: "" }]
+                                        : [
+                                              { value: "", label: "" },
+                                              {
+                                                  value:
+                                                      data.mod === "Deliver"
+                                                          ? "COD"
+                                                          : "COP",
+                                                  label:
+                                                      data.mod === "Deliver"
+                                                          ? "COD"
+                                                          : "COP",
+                                              },
+                                              {
+                                                  value: "Online Payment",
+                                                  label: "Online Payment",
+                                              },
+                                          ]
+                                }
+                                required={Boolean(data.mod)}
+                            />
+
+                            <InputError className="mt-2" message={errors.mop} />
                         </div>
 
                         {existingFiles.length > 0 && (

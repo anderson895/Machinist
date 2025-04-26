@@ -53,7 +53,7 @@ class OrderController extends Controller
 
         $order = Order::create([
             'offer_id' => $validated['id'],
-            'status' => 'pending'
+            'status' => 'Pending'
         ]);
 
         return redirect()->back()->with('success', 'Order submitted successfully!');
