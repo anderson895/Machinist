@@ -43,12 +43,12 @@ export default function Inquiries() {
                         options={[
                             { value: "all", label: "All" },
                             {
-                                value: "pending",
+                                value: "Pending",
                                 label: "Pending",
                             },
                             {
-                                value: "delivered",
-                                label: "delivered",
+                                value: "Delivered",
+                                label: "Delivered",
                             },
                         ]}
                     />
