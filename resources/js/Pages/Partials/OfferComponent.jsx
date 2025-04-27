@@ -1,10 +1,10 @@
-import SecondaryButton from "@/Components/SecondaryButton";
-import PostOfferForm from "./PostOfferForm";
-import OffersComponent from "./OffersComponent";
+import OrderOfferForm from "./OrderOfferForm";
 
 import { usePage } from "@inertiajs/react";
 
-export default function OfferComponent({ offer, offeredByUser }) {
+export default function OfferComponent({ offer, offeredByUser, canOrder }) {
+    const user = usePage().props.auth.user;
+
     const groupFilesByLabel = (files) => {
         return files.reduce((acc, file) => {
             if (!acc[file.label]) {
@@ -79,6 +79,12 @@ export default function OfferComponent({ offer, offeredByUser }) {
                         )}
                     </div>
                 </div>
+
+                {user.id != offeredByUser.id && canOrder && (
+                    <div className="pl-5 pb-5">
+                        <OrderOfferForm offer={offer} />
+                    </div>
+                )}
             </div>
         </>
     );

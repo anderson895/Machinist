@@ -1,9 +1,9 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import ApplicationLogo from "@/Components/ApplicationLogo";
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { Link, usePage } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
@@ -22,37 +22,66 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <ApplicationLogo className="h-12" />
                                 </Link>
                             </div>
-                            
 
                             {user.is_approved == true && (
                                 <>
                                     <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                         <NavLink
-                                            href={route('dashboard')}
-                                            active={route().current('dashboard')}
+                                            href={route("dashboard")}
+                                            active={route().current(
+                                                "dashboard"
+                                            )}
                                         >
                                             Dashboard
                                         </NavLink>
 
-                                        {user.role == 'admin' && (
+                                        {user.role == "admin" && (
                                             <NavLink
-                                                href={route('manage-user')}
-                                                active={route().current('manage-user')}
+                                                href={route("manage-user")}
+                                                active={route().current(
+                                                    "manage-user"
+                                                )}
                                             >
                                                 Manage User
                                             </NavLink>
                                         )}
-                                        
+
                                         <NavLink
-                                            href={route('inquiries')}
-                                            active={route().current('inquiries')}
+                                            href={route("inquiries")}
+                                            active={route().current(
+                                                "inquiries"
+                                            )}
                                         >
                                             Inquiries
                                         </NavLink>
 
+                                        {user.role == "manufacturer" && (
+                                            <NavLink
+                                                href={route("orders")}
+                                                active={route().current(
+                                                    "orders"
+                                                )}
+                                            >
+                                                Orders
+                                            </NavLink>
+                                        )}
+
+                                        {user.role == "user" && (
+                                            <NavLink
+                                                href={route("my-orders")}
+                                                active={route().current(
+                                                    "my-orders"
+                                                )}
+                                            >
+                                                My Orders
+                                            </NavLink>
+                                        )}
+
                                         <NavLink
-                                            href={route('test-page')}
-                                            active={route().current('test-page')}
+                                            href={route("test-page")}
+                                            active={route().current(
+                                                "test-page"
+                                            )}
                                         >
                                             Test Page
                                         </NavLink>
@@ -90,12 +119,12 @@ export default function AuthenticatedLayout({ header, children }) {
 
                                     <Dropdown.Content>
                                         <Dropdown.Link
-                                            href={route('profile.edit')}
+                                            href={route("profile.edit")}
                                         >
                                             Profile
                                         </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route('logout')}
+                                            href={route("logout")}
                                             method="post"
                                             as="button"
                                         >
@@ -110,7 +139,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
-                                        (previousState) => !previousState,
+                                        (previousState) => !previousState
                                     )
                                 }
                                 className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
@@ -124,8 +153,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <path
                                         className={
                                             !showingNavigationDropdown
-                                                ? 'inline-flex'
-                                                : 'hidden'
+                                                ? "inline-flex"
+                                                : "hidden"
                                         }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -135,8 +164,8 @@ export default function AuthenticatedLayout({ header, children }) {
                                     <path
                                         className={
                                             showingNavigationDropdown
-                                                ? 'inline-flex'
-                                                : 'hidden'
+                                                ? "inline-flex"
+                                                : "hidden"
                                         }
                                         strokeLinecap="round"
                                         strokeLinejoin="round"
@@ -151,39 +180,56 @@ export default function AuthenticatedLayout({ header, children }) {
 
                 <div
                     className={
-                        (showingNavigationDropdown ? 'block' : 'hidden') +
-                        ' sm:hidden'
+                        (showingNavigationDropdown ? "block" : "hidden") +
+                        " sm:hidden"
                     }
                 >
-
                     {user.is_approved == true && (
                         <div className="space-y-1 pb-3 pt-2">
                             <ResponsiveNavLink
-                                href={route('dashboard')}
-                                active={route().current('dashboard')}
+                                href={route("dashboard")}
+                                active={route().current("dashboard")}
                             >
                                 Dashboard
                             </ResponsiveNavLink>
 
-                            {user.role == 'admin' && (
+                            {user.role == "admin" && (
                                 <ResponsiveNavLink
-                                    href={route('manage-user')}
-                                    active={route().current('manage-user')}
+                                    href={route("manage-user")}
+                                    active={route().current("manage-user")}
                                 >
                                     Manage User
                                 </ResponsiveNavLink>
                             )}
 
                             <ResponsiveNavLink
-                                href={route('inquiries')}
-                                active={route().current('inquiries')}
+                                href={route("inquiries")}
+                                active={route().current("inquiries")}
                             >
                                 Inquiries
                             </ResponsiveNavLink>
 
+                            {user.role == "manufacturer" && (
+                                <ResponsiveNavLink
+                                    href={route("orders")}
+                                    active={route().current("orders")}
+                                >
+                                    Orders
+                                </ResponsiveNavLink>
+                            )}
+
+                            {user.role == "user" && (
+                                <ResponsiveNavLink
+                                    href={route("my-orders")}
+                                    active={route().current("my-orders")}
+                                >
+                                    My Orders
+                                </ResponsiveNavLink>
+                            )}
+
                             <ResponsiveNavLink
-                                href={route('test-page')}
-                                active={route().current('test-page')}
+                                href={route("test-page")}
+                                active={route().current("test-page")}
                             >
                                 Test Page
                             </ResponsiveNavLink>
@@ -201,12 +247,12 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>
+                            <ResponsiveNavLink href={route("profile.edit")}>
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
-                                href={route('logout')}
+                                href={route("logout")}
                                 as="button"
                             >
                                 Log Out

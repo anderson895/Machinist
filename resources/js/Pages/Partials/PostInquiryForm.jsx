@@ -1,7 +1,6 @@
 import Modal from "@/Components/Modal";
 import PrimaryButton from "@/Components/PrimaryButton";
 import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
 import TextAreaInput from "@/Components/TextAreaInput";
 import InputError from "@/Components/InputError";
 import DateTimeInput from "@/Components/DateTimeInput";
@@ -9,10 +8,11 @@ import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
 import MultiSelectInput from "@/Components/MultiSelectInput";
-import Select from "react-select";
 
-import { useForm, router } from "@inertiajs/react";
-import { useRef, useState } from "react";
+import { useForm } from "@inertiajs/react";
+
+import { useState, useEffect } from "react";
+
 import toast from "react-hot-toast";
 
 export default function PostInquiryForm({ user, userList }) {
@@ -58,6 +58,12 @@ export default function PostInquiryForm({ user, userList }) {
         setSelectedUsers(selectedValues);
         setData("viewers", selectedValues);
     };
+
+    useEffect(() => {
+        if (data.mod !== undefined) {
+            setData('mop', '');
+        }
+    }, [data.mod]);
 
     return (
         <>
@@ -154,28 +160,6 @@ export default function PostInquiryForm({ user, userList }) {
                         </div>
 
                         <div className="mt-5">
-                            <InputLabel htmlFor="mop" value="Mode Of Payment" />
-
-                            <SelectInput
-                                id="mop"
-                                name="mop"
-                                value={data.mop}
-                                onChange={(e) => setData("mop", e.target.value)}
-                                options={[
-                                    { value: "", label: "" },
-                                    { value: "COD", label: "COD" },
-                                    {
-                                        value: "ONLINE PAYMENT",
-                                        label: "ONLINE PAYMENT",
-                                    },
-                                ]}
-                                required
-                            />
-
-                            <InputError className="mt-2" message={errors.mop} />
-                        </div>
-
-                        <div className="mt-5">
                             <InputLabel
                                 htmlFor="mod"
                                 value="Mode Of Delivery"
@@ -198,6 +182,41 @@ export default function PostInquiryForm({ user, userList }) {
                             />
 
                             <InputError className="mt-2" message={errors.mod} />
+                        </div>
+
+                        <div className="mt-5">
+                            <InputLabel htmlFor="mop" value="Mode Of Payment" />
+
+                            <SelectInput
+                                id="mop"
+                                name="mop"
+                                value={data.mop}
+                                onChange={(e) => setData("mop", e.target.value)}
+                                options={
+                                    !data.mod
+                                        ? [{ value: "", label: "" }]
+                                        : [
+                                              { value: "", label: "" },
+                                              {
+                                                  value:
+                                                      data.mod === "Deliver"
+                                                          ? "COD"
+                                                          : "COP",
+                                                  label:
+                                                      data.mod === "Deliver"
+                                                          ? "COD"
+                                                          : "COP",
+                                              },
+                                              {
+                                                  value: "Online Payment",
+                                                  label: "Online Payment",
+                                              },
+                                          ]
+                                }
+                                required={Boolean(data.mod)}
+                            />
+
+                            <InputError className="mt-2" message={errors.mop} />
                         </div>
 
                         <div className="mt-5">

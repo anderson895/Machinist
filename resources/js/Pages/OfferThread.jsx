@@ -1,12 +1,9 @@
-import PrimaryButton from "@/Components/PrimaryButton";
-import SelectInput from "@/Components/SelectInput";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+
+import { Head, usePage } from "@inertiajs/react";
+
 import PostOfferForm from "./Partials/PostOfferForm";
 import OfferComponent from "./Partials/OfferComponent";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
-import PostInquiryForm from "./Partials/PostInquiryForm";
-import InquiryComponent from "./Partials/InquiryComponent";
-import { useState } from "react";
 
 export default function OfferThread() {
     const user = usePage().props.auth.user;
@@ -15,6 +12,8 @@ export default function OfferThread() {
 
     const inquiry = thread.inquiry;
     const offers = thread.offers;
+
+    const canOrder = usePage().props.canOrder;
 
     const groupFilesByLabel = (files) => {
         return files.reduce((acc, file) => {
@@ -124,6 +123,7 @@ export default function OfferThread() {
                                             ? inquiry.user
                                             : thread.user
                                     }
+                                    canOrder={canOrder}
                                 />
                             </div>
                         ))}
@@ -133,7 +133,8 @@ export default function OfferThread() {
                         thread?.user &&
                         inquiry.user &&
                         (user.id === thread.user.id ||
-                            user.id === inquiry.user.id) && (
+                            user.id === inquiry.user.id) &&
+                        canOrder == true && (
                             <div className="mt-5 text-end">
                                 <PostOfferForm
                                     inquiry={inquiry}

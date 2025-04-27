@@ -1,8 +1,8 @@
 import Modal from "@/Components/Modal";
 import SecondaryButton from "@/Components/SecondaryButton";
 
-import { useForm, router, usePage, Link } from "@inertiajs/react";
-import { useRef, useState } from "react";
+import { Link } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function OffersComponent({ inquiry }) {
     const [viewingOffer, setViewingOffer] = useState(false);
