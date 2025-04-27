@@ -14,6 +14,8 @@ class Order extends Model
         'status',
         'total_amount',
         'notes',
+        'proof_of_payment',
+        'cancelled_by_user_date'
     ];
 
     public function offer()

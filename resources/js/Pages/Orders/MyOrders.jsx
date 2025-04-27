@@ -8,7 +8,7 @@ import OrderComponent from "./Partials/OrderComponent";
 
 import { useState } from "react";
 
-export default function Orders() {
+export default function MyOrders() {
     const user = usePage().props.auth.user;
 
     const orders = usePage().props.orders;
@@ -37,7 +37,7 @@ export default function Orders() {
 
             <div className="pt-4 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4 flex justify-end">
                 <div className="w-full md:w-[25%]">
-                    <SelectInput
+                    {/* <SelectInput
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                         options={[
@@ -51,7 +51,7 @@ export default function Orders() {
                                 label: "Delivered",
                             },
                         ]}
-                    />
+                    /> */}
                 </div>
             </div>
 

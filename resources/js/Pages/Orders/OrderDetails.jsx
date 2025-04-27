@@ -4,6 +4,8 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import TextAreaInput from "@/Components/TextAreaInput";
+import FileInput from "@/Components/FileInput";
+import ProofOfPaymentUpload from "./Partials/ProofOfPaymentUpload";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
@@ -23,6 +25,8 @@ export default function OrderDetails() {
     var orderedByUser = order.offer.thread.inquiry.user;
 
     console.log(order);
+
+    const isManufacturer = user.id === offer.thread.user_id;
 
     const { data, setData, post, processing, errors, reset } = useForm({
         id: order.id,
@@ -55,8 +59,7 @@ export default function OrderDetails() {
             // need to upload item_image
         }
 
-        if(data.status == "Picked Up" || data.status == "Delivered")
-        {
+        if (data.status == "Picked Up" || data.status == "Delivered") {
             // need to update proof_image
         }
 
@@ -168,10 +171,17 @@ export default function OrderDetails() {
         >
             <Head title="Orders" />
 
+            {order.status == "Waiting for Payment" &&
+                order.proof_of_payment == null && (
+                    <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
+                        <ProofOfPaymentUpload order_id={order.id} />
+                    </div>
+                )}
+
             <form
                 onSubmit={onSaveOrder}
                 encType="multipart/form-data"
-                className="p-6"
+                className=""
             >
                 <div className="pt-4 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-sm p-3">
@@ -262,7 +272,10 @@ export default function OrderDetails() {
                                     isFocused
                                     autoComplete="total_amount"
                                     type="number"
-                                    disabled={data.status != "Pending"}
+                                    disabled={
+                                        data.status != "Pending" ||
+                                        !isManufacturer
+                                    }
                                 />
 
                                 <InputError
@@ -282,6 +295,7 @@ export default function OrderDetails() {
                                         setData("status", e.target.value)
                                     }
                                     options={getStatusOptions()}
+                                    disabled={!isManufacturer}
                                     // required
                                 />
                                 <InputError
@@ -306,6 +320,7 @@ export default function OrderDetails() {
                                     // required
                                     isFocused
                                     autoComplete="notes"
+                                    disabled={!isManufacturer}
                                 />
 
                                 <InputError
@@ -314,14 +329,35 @@ export default function OrderDetails() {
                                 />
                             </div>
                         </div>
-                        <div className="mt-6 flex justify-end">
-                            <PrimaryButton
-                                className="ms-3"
-                                disabled={processing}
-                            >
-                                Save
-                            </PrimaryButton>
-                        </div>
+
+                        {order.proof_of_payment != null && (
+                            <div className="mt-10">
+                                <hr />
+                                <div className="mt-5">
+                                    <h1 className="font-bold">
+                                        Proof of Payment:
+                                    </h1>
+                                    <div className="flex justify-center">
+                                        <img
+                                            className="max-w-[300px]"
+                                            src={`/uploads/pof/${order.proof_of_payment}`}
+                                            alt=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {isManufacturer && (
+                            <div className="mt-6 flex justify-end">
+                                <PrimaryButton
+                                    className="ms-3"
+                                    disabled={processing}
+                                >
+                                    Save
+                                </PrimaryButton>
+                            </div>
+                        )}
                     </div>
                 </div>
             </form>

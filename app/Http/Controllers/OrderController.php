@@ -45,6 +45,32 @@ class OrderController extends Controller
 
     }
 
+    public function getMyOrders()
+    {
+        $userId = auth()->id();
+
+        $orders = Order::with([
+            'offer',
+            'offer.thread',
+            'offer.thread.user',
+            'offer.thread.inquiry',
+            'offer.thread.inquiry.user',
+            'offer.files'
+        ])
+        ->whereHas('offer.thread.inquiry', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+        ->get();
+
+        // return response()->json([
+        //     'orders' => $orders
+        // ]);
+
+        return Inertia::render('Orders/MyOrders', [
+            'orders' => $orders
+        ]);
+    }
+
     public function orderOffer(Request $request)
     {
         $validated = $request->validate([
@@ -102,4 +128,24 @@ class OrderController extends Controller
 
         return redirect()->back()->with('success', 'Order update submitted successfully!');
     }
+    
+    public function uploadPof(Request $request)
+    {
+        $validated = $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'proof_of_payment' => 'required|image|mimes:jpeg,png,jpg',
+        ]);
+
+        $file = $request->file('proof_of_payment');
+        $extension = $file->getClientOriginalExtension();
+        $filename = 'pof-' . uniqid() . '.' . $extension;
+        $file->move(public_path('uploads/pof'), $filename);
+
+        $order = Order::findOrFail($validated['order_id']);
+        $order->proof_of_payment = $filename;
+        $order->save();
+
+        return back()->with('success', 'Proof of Payment Uploaded Successfully!');
+    }
+
 }

@@ -66,6 +66,17 @@ export default function AuthenticatedLayout({ header, children }) {
                                             </NavLink>
                                         )}
 
+                                        {user.role == "user" && (
+                                            <NavLink
+                                                href={route("my-orders")}
+                                                active={route().current(
+                                                    "my-orders"
+                                                )}
+                                            >
+                                                My Orders
+                                            </NavLink>
+                                        )}
+
                                         <NavLink
                                             href={route("test-page")}
                                             active={route().current(
@@ -197,6 +208,24 @@ export default function AuthenticatedLayout({ header, children }) {
                             >
                                 Inquiries
                             </ResponsiveNavLink>
+
+                            {user.role == "manufacturer" && (
+                                <ResponsiveNavLink
+                                    href={route("orders")}
+                                    active={route().current("orders")}
+                                >
+                                    Orders
+                                </ResponsiveNavLink>
+                            )}
+
+                            {user.role == "user" && (
+                                <ResponsiveNavLink
+                                    href={route("my-orders")}
+                                    active={route().current("my-orders")}
+                                >
+                                    My Orders
+                                </ResponsiveNavLink>
+                            )}
 
                             <ResponsiveNavLink
                                 href={route("test-page")}

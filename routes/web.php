@@ -90,6 +90,10 @@ Route::get('/orders', [OrderController::class, 'get'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer'])
     ->name('orders');
 
+Route::get('/my-orders', [OrderController::class, 'getMyOrders'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('my-orders');
+
 Route::post('/order-offer', [OrderController::class, 'orderOffer'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('order-offer');
@@ -99,9 +103,13 @@ Route::post('/order-offer', [OrderController::class, 'orderOffer'])
     ->middleware(['auth', 'verified'])
     ->name('order-details');
 
- Route::post('/save-order', [OrderController::class, 'updateOrder'])
+Route::post('/save-order', [OrderController::class, 'updateOrder'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer'])
     ->name('save-order');
+
+Route::post('/upload-pof', [OrderController::class, 'uploadPof'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('upload-pof');
 
     
 
