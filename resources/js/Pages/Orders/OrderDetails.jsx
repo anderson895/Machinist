@@ -6,6 +6,7 @@ import TextInput from "@/Components/TextInput";
 import TextAreaInput from "@/Components/TextAreaInput";
 import FileInput from "@/Components/FileInput";
 import ProofOfPaymentUpload from "./Partials/ProofOfPaymentUpload";
+import ProofOfDeliveryUpload from "./Partials/ProofOfDeliveryUpload";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
@@ -59,8 +60,17 @@ export default function OrderDetails() {
             // need to upload item_image
         }
 
-        if (data.status == "Picked Up" || data.status == "Delivered") {
-            // need to update proof_image
+        if (
+            (data.status === "Picked Up" || data.status === "Delivered") &&
+            !order.proof_of_delivery
+        ) {
+            const proofMessage =
+                data.status === "Picked Up"
+                    ? "Please upload proof of pick up"
+                    : "Please upload proof of delivery";
+            toast.error(proofMessage);
+
+            return;
         }
 
         post("/save-order", {
@@ -172,9 +182,19 @@ export default function OrderDetails() {
             <Head title="Orders" />
 
             {order.status == "Waiting for Payment" &&
-                order.proof_of_payment == null && (
+                order.proof_of_payment == null &&
+                user.id == orderedByUser.id && (
                     <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
                         <ProofOfPaymentUpload order_id={order.id} />
+                    </div>
+                )}
+
+            {(order.status == "Order Ship" ||
+                order.status == "Ready To Pick Up") &&
+                order.proof_of_delivery == null &&
+                user.id == offer.thread.user_id && (
+                    <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
+                        <ProofOfDeliveryUpload order_id={order.id} />
                     </div>
                 )}
 
@@ -340,7 +360,25 @@ export default function OrderDetails() {
                                     <div className="flex justify-center">
                                         <img
                                             className="max-w-[300px]"
-                                            src={`/uploads/pof/${order.proof_of_payment}`}
+                                            src={`/uploads/${order.proof_of_payment}`}
+                                            alt=""
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {order.proof_of_delivery != null && (
+                            <div className="mt-10">
+                                <hr />
+                                <div className="mt-5">
+                                    <h1 className="font-bold">
+                                        Proof of Delivery/Picked Up:
+                                    </h1>
+                                    <div className="flex justify-center">
+                                        <img
+                                            className="max-w-[300px]"
+                                            src={`/uploads/${order.proof_of_delivery}`}
                                             alt=""
                                         />
                                     </div>

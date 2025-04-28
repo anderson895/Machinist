@@ -110,6 +110,10 @@ Route::post('/save-order', [OrderController::class, 'updateOrder'])
 Route::post('/upload-pof', [OrderController::class, 'uploadPof'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('upload-pof');
+    
+Route::post('/upload-pod', [OrderController::class, 'uploadPod'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
+    ->name('upload-pod');
 
     
 

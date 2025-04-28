@@ -139,7 +139,7 @@ class OrderController extends Controller
         $file = $request->file('proof_of_payment');
         $extension = $file->getClientOriginalExtension();
         $filename = 'pof-' . uniqid() . '.' . $extension;
-        $file->move(public_path('uploads/pof'), $filename);
+        $file->move(public_path('uploads'), $filename);
 
         $order = Order::findOrFail($validated['order_id']);
         $order->proof_of_payment = $filename;
@@ -148,4 +148,32 @@ class OrderController extends Controller
         return back()->with('success', 'Proof of Payment Uploaded Successfully!');
     }
 
+    public function uploadPod(Request $request)
+    {
+        $validated = $request->validate([
+            'order_id' => 'required|exists:orders,id',
+            'proof_of_delivery' => 'required|image|mimes:jpeg,png,jpg',
+        ]);
+
+        $file = $request->file('proof_of_delivery');
+        $extension = $file->getClientOriginalExtension();
+        $filename = 'pod-' . uniqid() . '.' . $extension;
+        $file->move(public_path('uploads'), $filename);
+
+        $order = Order::findOrFail($validated['order_id']);
+
+        if($order->offer->mod == "Pick Up")
+        {
+            $order->status = "Picked Up";
+        }
+        elseif ($order->offer->mod == "Deliver")
+        {
+            $order->status = "Delivered";
+        }
+
+        $order->proof_of_delivery = $filename;
+        $order->save();
+
+        return back()->with('success', 'Proof of Delivery Uploaded Successfully!');
+    }
 }
