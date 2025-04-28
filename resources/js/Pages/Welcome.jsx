@@ -49,7 +49,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             <Link href={route('dashboard')} className="hover:text-gray-600">Dashboard</Link>
                         ) : (
                             <>
-                                <Link href={route('login')} className="hover:text-gray-600">Login</Link>
+                                <Link href={route('login')} className="hover:text-gray-600">Loginsss</Link>
                                 <Link href={route('register')} className="hover:text-gray-600">Register</Link>
                             </>
                         )}
