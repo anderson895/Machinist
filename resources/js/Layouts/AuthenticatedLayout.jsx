@@ -78,14 +78,14 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 </NavLink>
                                             ))}
 
-                                        <NavLink
+                                        {/* <NavLink
                                             href={route("test-page")}
                                             active={route().current(
                                                 "test-page"
                                             )}
                                         >
                                             Test Page
-                                        </NavLink>
+                                        </NavLink> */}
                                     </div>
                                 </>
                             )}
@@ -229,12 +229,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </ResponsiveNavLink>
                                 ))}
 
-                            <ResponsiveNavLink
+                            {/* <ResponsiveNavLink
                                 href={route("test-page")}
                                 active={route().current("test-page")}
                             >
                                 Test Page
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink> */}
                         </div>
                     )}
 
