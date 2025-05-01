@@ -10,7 +10,7 @@ export default function ApplicationLogo(props) {
 
         <img 
             {...props}
-            src="/images/machinist-logo.png"
+            src="/images/machinist-logo-05-01-25.png"
             alt="Application Logo"
         />
     );
