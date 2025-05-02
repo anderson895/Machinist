@@ -40,7 +40,29 @@ class DashboardController extends Controller
 
     function getManufacturerDashboard($userId)
     {
-        return Inertia::render('Dashboard', []);
+        $inquiriesCount = Inquiry::where('user_id', $userId)->count();
+
+        $offersToInquiriesCount = OfferThread::whereHas('inquiry', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
+        
+        $ordersCount = Order::whereHas('offer.thread.inquiry', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
+
+
+        $manufacturerOffersCount = OfferThread::where('user_id', $userId)->count();
+        $ordersToManufacturerCount = Order::whereHas('offer.thread', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->count();
+
+        return Inertia::render('Dashboard', [
+            'inquiriesCount' => $inquiriesCount,
+            'offersToInquiriesCount' => $offersToInquiriesCount,
+            'ordersCount' => $ordersCount,
+            'manufacturerOffersCount' => $manufacturerOffersCount,
+            'ordersToManufacturerCount' => $ordersToManufacturerCount
+        ]);
     }
 
     function getAdminDashboard($userId)
