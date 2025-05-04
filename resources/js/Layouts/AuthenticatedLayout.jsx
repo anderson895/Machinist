@@ -66,25 +66,26 @@ export default function AuthenticatedLayout({ header, children }) {
                                             </NavLink>
                                         )}
 
-                                        {user.role == "user" && (
-                                            <NavLink
-                                                href={route("my-orders")}
-                                                active={route().current(
-                                                    "my-orders"
-                                                )}
-                                            >
-                                                My Orders
-                                            </NavLink>
-                                        )}
+                                        {user.role == "user" ||
+                                            (user.role == "manufacturer" && (
+                                                <NavLink
+                                                    href={route("my-orders")}
+                                                    active={route().current(
+                                                        "my-orders"
+                                                    )}
+                                                >
+                                                    My Orders
+                                                </NavLink>
+                                            ))}
 
-                                        <NavLink
+                                        {/* <NavLink
                                             href={route("test-page")}
                                             active={route().current(
                                                 "test-page"
                                             )}
                                         >
                                             Test Page
-                                        </NavLink>
+                                        </NavLink> */}
                                     </div>
                                 </>
                             )}
@@ -218,21 +219,22 @@ export default function AuthenticatedLayout({ header, children }) {
                                 </ResponsiveNavLink>
                             )}
 
-                            {user.role == "user" && (
-                                <ResponsiveNavLink
-                                    href={route("my-orders")}
-                                    active={route().current("my-orders")}
-                                >
-                                    My Orders
-                                </ResponsiveNavLink>
-                            )}
+                            {user.role == "user" ||
+                                (user.role == "manufacturer" && (
+                                    <ResponsiveNavLink
+                                        href={route("my-orders")}
+                                        active={route().current("my-orders")}
+                                    >
+                                        My Orders
+                                    </ResponsiveNavLink>
+                                ))}
 
-                            <ResponsiveNavLink
+                            {/* <ResponsiveNavLink
                                 href={route("test-page")}
                                 active={route().current("test-page")}
                             >
                                 Test Page
-                            </ResponsiveNavLink>
+                            </ResponsiveNavLink> */}
                         </div>
                     )}
 

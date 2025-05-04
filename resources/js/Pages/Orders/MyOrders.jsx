@@ -29,7 +29,7 @@ export default function MyOrders() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Orders
+                    My Orders
                 </h2>
             }
         >

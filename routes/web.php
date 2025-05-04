@@ -13,6 +13,7 @@ use App\Models\Inquiry;
 
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\DashboardController;
 
 
 Route::get('/', function () {
@@ -26,9 +27,9 @@ Route::get('/', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', RoleMiddleware::class . ':admin,manufacturer,user'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'getDashboarData'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':admin,manufacturer,user'])
+    ->name('dashboard');
 
 
 
