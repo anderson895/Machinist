@@ -67,8 +67,21 @@ class DashboardController extends Controller
 
     function getAdminDashboard($userId)
     {
-        return Inertia::render('Dashboard', []);
+        $totalUsers = User::count();
+        $totalInquiries = Inquiry::count();
+        $totalOffers = OfferThread::count();
+        $totalOrders = Order::count();
+        $totalCompletedOrders = Order::where('status', 'Delivered')->count();
+
+        return Inertia::render('Dashboard', [
+            'totalUsers' => $totalUsers,
+            'totalInquiries' => $totalInquiries,
+            'totalOffers' => $totalOffers,
+            'totalOrders' => $totalOrders,
+            'totalCompletedOrders' => $totalCompletedOrders,
+        ]);
     }
+
 
     function getDashboarData()
     {
