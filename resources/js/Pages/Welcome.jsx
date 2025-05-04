@@ -17,31 +17,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <>
             <Head title="Welcome" />
             <div className="bg-white text-gray-800 min-h-screen">
-                {/* Header Banner */}
-                <div className="w-full flex items-center h-16 bg-gray-100 overflow-hidden">
-                    {/* Logo on the left */}
-                    <div className="w-full relative h-16 overflow-hidden">
-                        {/* Banner Image (Background) */}
-                        <img
-                            src="/images/header-banner.png"
-                            alt="Welcome to Machinist Banner"
-                            className="w-full h-full object-cover"
-                        />
-
-                        {/* Logo (Overlayed on top) */}
-                        <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-                            {/* <img
-                                src="/images/machinist-logo.png"
-                                className="h-12 w-auto drop-shadow-md"
-                                alt="Machinist Logo"
-                            /> */}
-                            <ApplicationLogo className="h-12 w-auto drop-shadow-md" />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Navbar */}
                 <nav className="flex justify-between items-center px-8 py-6 shadow-sm border-b border-gray-200">
+                    <ApplicationLogo className="h-12 w-auto drop-shadow-md" />
                     <div className="text-2xl font-bold text-gray-900"></div>
                     <div className="space-x-6">
                         {auth.user ? (
@@ -53,23 +30,56 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </Link>
                         ) : (
                             <>
-                                <Link href={route('login')} className="hover:text-gray-600">Login</Link>
-                                <Link href={route('register')} className="hover:text-gray-600">Register</Link>
+                                <Link
+                                    href={route("login")}
+                                    className="hover:text-gray-600  "
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    href={route("register")}
+                                    className="hover:text-gray-600"
+                                >
+                                    Register
+                                </Link>
                             </>
                         )}
                     </div>
                 </nav>
 
-                {/* Hero Section */}
-                <section className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
+                <section
+                    className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10"
+                    style={{
+                        backgroundImage: "url('images/welcome-bg.jpg')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                    }}
+                >
                     <div className="max-w-xl">
-                        <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6 text-gray-900">
+                        <h1
+                            className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white text-shadow-lg"
+                            style={{ textShadow: "2px 2px 2px black" }}
+                        >
                             Connecting{" "}
-                            <span className="text-gray-500">clients</span> and{" "}
-                            <span className="text-gray-500">manufacturers</span>{" "}
+                            <span
+                                className="text-blue-300"
+                                style={{ textShadow: "2px 2px 2px white" }}
+                            >
+                                clients
+                            </span>{" "}
+                            and{" "}
+                            <span
+                                className="text-blue-300"
+                                style={{ textShadow: "2px 2px 2px white" }}
+                            >
+                                manufacturers
+                            </span>{" "}
                             in one platform
                         </h1>
-                        <p className="text-lg mb-8 text-gray-600">
+                        <p
+                            className="text-lg mb-8 text-white"
+                            style={{ textShadow: "1px 1px 1px black" }}
+                        >
                             We make it easier and faster to find the right
                             business partner—whether you're a manufacturer or a
                             client.
@@ -78,26 +88,18 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <div className="flex gap-4">
                             <Link
                                 href={route("register")}
-                                className="bg-gray-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-700 transition"
+                                className="bg-gray-100 text-black px-6 py-3 rounded-xl font-medium hover:bg-gray-900 hover:text-white transition"
                             >
                                 Get Started
                             </Link>
                             <a
                                 href="#learnMore"
-                                className="border border-gray-300 text-gray-900 px-6 py-3 rounded-xl font-medium hover:bg-gray-100 transition"
+                                className="border border-gray-300 text-gray-300 font-bold px-6 py-3 rounded-xl hover:bg-gray-100 hover:text-black transition"
                             >
                                 Learn More
                             </a>
                         </div>
                     </div>
-                    {/* <img
-                        src="/images/machinist-logo.png"
-                        onError={handleImageError}
-                        className="max-w-md drop-shadow-sm"
-                        alt="Hero Illustration"
-                    /> */}
-
-                    <ApplicationLogo />
                 </section>
 
                 {/* Feature Section */}
