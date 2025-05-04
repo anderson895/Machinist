@@ -30,6 +30,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </Link>
                         ) : (
                             <>
+
                                 <Link
                                     href={route("login")}
                                     className="hover:text-gray-600  "
@@ -42,6 +43,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 >
                                     Register
                                 </Link>
+                             
                             </>
                         )}
                     </div>
