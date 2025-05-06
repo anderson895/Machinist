@@ -46,6 +46,12 @@ export default function InquiryComponent({ inquiry, userList }) {
 
                         <div className="mt-5">
                             <div className="text-xs color-green-100">
+                                Targer Price: {inquiry.price}
+                            </div>
+                            <div className="text-xs color-green-100">
+                                Targer Quantity: {inquiry.qty}
+                            </div>
+                            <div className="text-xs color-green-100">
                                 Delivery Date:{" "}
                                 {new Date(
                                     inquiry.delivery_time

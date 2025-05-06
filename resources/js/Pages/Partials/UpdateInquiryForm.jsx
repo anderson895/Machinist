@@ -9,6 +9,7 @@ import SelectInput from "@/Components/SelectInput";
 import FileInput from "@/Components/FileInput";
 import MultiSelectInput from "@/Components/MultiSelectInput";
 import DangerButton from "@/Components/DangerButton";
+import TextInput from "@/Components/TextInput";
 
 import { useForm } from "@inertiajs/react";
 
@@ -34,6 +35,8 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         id: inquiry.id,
         description: inquiry.description,
+        price: inquiry.price,
+        qty: inquiry.qty,
         delivery_time: inquiry.delivery_time,
         mop: inquiry.mop,
         mod: inquiry.mod,
@@ -47,6 +50,8 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
             setData({
                 id: inquiry.id,
                 description: inquiry.description,
+                price: inquiry.price,
+                qty: inquiry.qty,
                 delivery_time: inquiry.delivery_time,
                 mop: inquiry.mop,
                 mod: inquiry.mod,
@@ -92,7 +97,7 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
 
     useEffect(() => {
         if (data.mod !== undefined) {
-            setData('mop', '');
+            setData("mop", "");
         }
     }, [data.mod]);
 
@@ -162,6 +167,45 @@ export default function UpdateInquiryForm({ inquiry, userList }) {
                                 className="mt-2"
                                 message={errors.description}
                             />
+                        </div>
+
+                        <div className="mt-5">
+                            <InputLabel htmlFor="price" value="Target Price" />
+
+                            <TextInput
+                                id="price"
+                                name="price"
+                                className="mt-1 block w-full"
+                                value={data.price}
+                                onChange={(e) =>
+                                    setData("price", e.target.value)
+                                }
+                                type="number"
+                                isFocused
+                                autoComplete="price"
+                            />
+
+                            <InputError
+                                className="mt-2"
+                                message={errors.price}
+                            />
+                        </div>
+
+                        <div className="mt-5">
+                            <InputLabel htmlFor="qty" value="Target Quantity" />
+
+                            <TextInput
+                                id="qty"
+                                name="qty"
+                                className="mt-1 block w-full"
+                                value={data.qty}
+                                onChange={(e) => setData("qty", e.target.value)}
+                                type="number"
+                                isFocused
+                                autoComplete="qty"
+                            />
+
+                            <InputError className="mt-2" message={errors.qty} />
                         </div>
 
                         <div className="mt-5">

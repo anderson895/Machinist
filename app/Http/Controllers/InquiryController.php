@@ -40,6 +40,8 @@ class InquiryController extends Controller
 
         $validated = $request->validate([
             'description' => 'required|string',
+            'price' => 'required|numeric',
+            'qty' => 'required|integer',
             'delivery_time' => 'required|date|after_or_equal:today',
             'mop' => 'required|string',
             'mod' => 'required|string',
@@ -52,6 +54,8 @@ class InquiryController extends Controller
         $inquiry = Inquiry::create([
             'user_id' => $userId,
             'description' => $validated['description'],
+            'price' => $validated['price'],
+            'qty' => $validated['qty'],
             'delivery_time' => $validated['delivery_time'],
             'mop' => $validated['mop'],
             'mod' => $validated['mod'],
@@ -90,6 +94,8 @@ class InquiryController extends Controller
         $validated = $request->validate([
             'id' => 'required|exists:inquiries,id',
             'description' => 'required|string',
+            'price' => 'required|numeric',
+            'qty' => 'required|integer',
             'delivery_time' => 'required|date|after_or_equal:today',
             'mop' => 'required|string',
             'mod' => 'required|string',
@@ -107,6 +113,8 @@ class InquiryController extends Controller
 
         $inquiry->update([
             'description' => $validated['description'],
+            'price' => $validated['price'],
+            'qty' => $validated['qty'],
             'delivery_time' => $validated['delivery_time'],
             'mop' => $validated['mop'],
             'mod' => $validated['mod'],
