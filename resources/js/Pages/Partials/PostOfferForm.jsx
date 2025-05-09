@@ -30,6 +30,7 @@ export default function PostOfferForm({ inquiry, threadId }) {
         delivery_time: "",
         mop: "",
         mod: "",
+        net_days: 0,
         files: [],
     });
 
@@ -56,7 +57,7 @@ export default function PostOfferForm({ inquiry, threadId }) {
 
     useEffect(() => {
         if (data.mod !== undefined) {
-            setData('mop', '');
+            setData("mop", "");
         }
     }, [data.mod]);
 
@@ -212,6 +213,37 @@ export default function PostOfferForm({ inquiry, threadId }) {
 
                             <InputError className="mt-2" message={errors.mop} />
                         </div>
+
+                        {data.mop == "Online Payment" && (
+                            <div className="mt-5">
+                                <InputLabel
+                                    htmlFor="net_days"
+                                    value="Net Days"
+                                />
+
+                                <SelectInput
+                                    id="net_days"
+                                    name="net_days"
+                                    value={data.net_days}
+                                    onChange={(e) =>
+                                        setData("net_days", e.target.value)
+                                    }
+                                    options={[
+                                        { value: "", label: "" },
+                                        { value: "15", label: "Net 15" },
+                                        { value: "30", label: "Net 30" },
+                                        { value: "45", label: "Net 45" },
+                                        { value: "60", label: "Net 60" },
+                                        { value: "90", label: "Net 90" },
+                                    ]}
+                                />
+
+                                <InputError
+                                    className="mt-2"
+                                    message={errors.net_days}
+                                />
+                            </div>
+                        )}
 
                         <div className="mt-5">
                             <InputLabel htmlFor="files" value="Upload files" />

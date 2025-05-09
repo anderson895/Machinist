@@ -172,6 +172,7 @@ class InquiryController extends Controller
             'delivery_time' => 'required|date|after_or_equal:today',
             'mop'           => 'required|string',
             'mod'           => 'required|string',
+            'net_days'      => 'nullable|numeric',
             'files'         => 'nullable|array',
             'files.*'       => 'file|mimes:jpg,jpeg,png,pdf|max:5120',
         ]);
@@ -198,6 +199,7 @@ class InquiryController extends Controller
             'delivery_time' => $validated['delivery_time'],
             'mop' => $validated['mop'],
             'mod' => $validated['mod'],
+            'net_days' => $validated['net_days'],
             'is_inquirer' => $isInquirer,
         ]);
 

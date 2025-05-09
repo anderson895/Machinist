@@ -45,6 +45,11 @@ export default function OfferComponent({ offer, offeredByUser, canOrder }) {
                             <div className="text-xs color-green-100">
                                 Payment: {offer.mop}
                             </div>
+                            {offer.net_days > 0 && (
+                                <div className="text-xs color-green-100">
+                                    Net Days: {offer.net_days}
+                                </div>
+                            )}
                             <div className="text-xs color-green-100">
                                 Price: {offer.price}
                             </div>

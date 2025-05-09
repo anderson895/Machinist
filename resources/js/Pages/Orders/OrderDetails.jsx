@@ -56,9 +56,9 @@ export default function OrderDetails() {
             return;
         }
 
-        if (data.status == "Ready To Pick Up" || data.status == "Order Ship") {
-            // need to upload item_image
-        }
+        // if (data.status == "Ready To Pick Up" || data.status == "Order Ship") {
+        //     // need to upload item_image
+        // }
 
         if (
             (data.status === "Picked Up" || data.status === "Delivered") &&
@@ -104,7 +104,7 @@ export default function OrderDetails() {
         "Pick Up": {
             "Online Payment": [
                 "Pending",
-                "Waiting for Payment",
+                ...(offer.net_days > 0 ? [] : ["Waiting for Payment"]),
                 "Accepted",
                 "Preparing",
                 "Ready To Pick Up",
@@ -123,7 +123,7 @@ export default function OrderDetails() {
         Deliver: {
             "Online Payment": [
                 "Pending",
-                "Waiting for Payment",
+                ...(offer.net_days > 0 ? [] : ["Waiting for Payment"]),
                 "Accepted",
                 "Preparing",
                 "Order Ship",
@@ -140,6 +140,12 @@ export default function OrderDetails() {
             ],
         },
     };
+
+    // Net 15
+    // Net 30
+    // Net 45
+    // Net 60
+    // Net 90
 
     const getStatusOptions = () => {
         console.log(data.status);
@@ -181,7 +187,9 @@ export default function OrderDetails() {
         >
             <Head title="Orders" />
 
-            {order.status == "Waiting for Payment" &&
+            {(order.status == "Waiting for Payment" ||
+                order.status == "Picked Up" ||
+                order.status == "Delivered") &&
                 order.proof_of_payment == null &&
                 user.id == orderedByUser.id && (
                     <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
@@ -236,6 +244,7 @@ export default function OrderDetails() {
                                         </div>
                                         <div>Mode of Delivery: {offer.mod}</div>
                                         <div>Mode of Payment: {offer.mop}</div>
+                                        <div>Net Days: {offer.net_days}</div>
                                     </div>
 
                                     <div className="w-full md:w-[50%]">
