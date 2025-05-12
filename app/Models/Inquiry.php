@@ -12,6 +12,8 @@ class Inquiry extends Model
     protected $fillable = [
         'user_id',
         'description',
+        'price',
+        'qty',
         'files',
         'delivery_time',
         'mop',

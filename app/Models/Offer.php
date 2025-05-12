@@ -14,6 +14,7 @@ class Offer extends Model
         'delivery_time',
         'mop',
         'mod',
+        'net_days',
         'is_inquirer'
     ];
 
