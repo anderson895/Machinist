@@ -50,34 +50,50 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <section
                     className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10"
                     style={{
+
                         // backgroundImage: "url('images/welcome-bg.jpg')",
                         backgroundImage: "url('images/welcome-bg-2.webp')",
+
+                       
+
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                     }}
                 >
+
                     <div className="max-w-xl bg-gray-400/50 p-6 rounded-xl">
                         <h1
                             className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white"
                             style={{
                                 textShadow: "2px 2px 4px rgba(0,0,0,0.6)",
                             }}
+
+                  
+
                         >
                             Connecting{" "}
                             <span
                                 className="text-blue-300"
+
                                 style={{
                                     textShadow: "2px 2px 1px white",
                                 }}
+
+                                
+
                             >
                                 clients
                             </span>{" "}
                             and{" "}
                             <span
                                 className="text-blue-300"
+
                                 style={{
                                     textShadow: "2px 2px 1px white",
                                 }}
+
+                                
+
                             >
                                 manufacturers
                             </span>{" "}
@@ -95,14 +111,18 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <div className="flex gap-4">
                             <Link
                                 href={route("register")}
+
                                 className="border border-white bg-blue-300/75 text-white px-6 py-3 rounded-xl font-black hover:bg-gray-900 transition"
+
                             >
                                 Get Started
                             </Link>
 
                             <a
                                 href="#learnMore"
+
                                 className="border border-white text-white font-medium px-6 py-3 rounded-xl hover:bg-white hover:text-black transition"
+
                             >
                                 Learn More
                             </a>
