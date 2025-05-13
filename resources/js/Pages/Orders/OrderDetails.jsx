@@ -1,4 +1,5 @@
 import PrimaryButton from "@/Components/PrimaryButton";
+import SecondaryButton from "@/Components/SecondaryButton";
 import SelectInput from "@/Components/SelectInput";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
@@ -10,11 +11,12 @@ import ProofOfDeliveryUpload from "./Partials/ProofOfDeliveryUpload";
 
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 
-import { Head, usePage, useForm } from "@inertiajs/react";
+import { Head, usePage, useForm, Link } from "@inertiajs/react";
 
 import toast from "react-hot-toast";
 
 import { useState, useEffect } from "react";
+import NavLink from "@/Components/NavLink";
 
 export default function OrderDetails() {
     const user = usePage().props.auth.user;
@@ -26,6 +28,9 @@ export default function OrderDetails() {
     var orderedByUser = order.offer.thread.inquiry.user;
 
     console.log(order);
+
+    console.log("offered by: " + offer.thread.user_id);
+    console.log("ordered by: " + orderedByUser.id);
 
     const isManufacturer = user.id === offer.thread.user_id;
 
@@ -187,24 +192,38 @@ export default function OrderDetails() {
         >
             <Head title="Orders" />
 
-            {(order.status == "Waiting for Payment" ||
-                order.status == "Picked Up" ||
-                order.status == "Delivered") &&
-                order.proof_of_payment == null &&
-                user.id == orderedByUser.id && (
-                    <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
+            <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4 flex gap-3">
+                {(order.status == "Waiting for Payment" ||
+                    order.status == "Picked Up" ||
+                    order.status == "Delivered") &&
+                    order.proof_of_payment == null &&
+                    user.id == orderedByUser.id && (
                         <ProofOfPaymentUpload order_id={order.id} />
-                    </div>
-                )}
+                    )}
 
-            {(order.status == "Order Ship" ||
-                order.status == "Ready To Pick Up") &&
-                order.proof_of_delivery == null &&
-                user.id == offer.thread.user_id && (
-                    <div className="pt-5 pb-3 mx-auto max-w-7xl sm:px-6 lg:px-8 px-4">
+                {(order.status == "Order Ship" ||
+                    order.status == "Ready To Pick Up") &&
+                    order.proof_of_delivery == null &&
+                    user.id == offer.thread.user_id && (
                         <ProofOfDeliveryUpload order_id={order.id} />
-                    </div>
-                )}
+                    )}
+
+                <Link
+                    href={route("view-message", {
+                        id:
+                            orderedByUser.id === user.id
+                                ? offer.thread.user_id
+                                : orderedByUser.id,
+                    })}
+                >
+                    <SecondaryButton>
+                        Message{" "}
+                        {orderedByUser.id === user.id
+                            ? offer.thread.user.name
+                            : orderedByUser.name}
+                    </SecondaryButton>
+                </Link>
+            </div>
 
             <form
                 onSubmit={onSaveOrder}
