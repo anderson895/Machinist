@@ -14,6 +14,7 @@ use App\Models\Inquiry;
 use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessageController;
 
 
 Route::get('/', function () {
@@ -116,6 +117,19 @@ Route::post('/upload-pod', [OrderController::class, 'uploadPod'])
     ->middleware(['auth', 'verified', RoleMiddleware::class . ':manufacturer,user'])
     ->name('upload-pod');
 
+
+
+Route::get('/messages', [MessageController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('messages');
+
+Route::get('/view-message', [MessageController::class, 'viewMessage'])
+    ->middleware(['auth', 'verified'])
+    ->name('view-message');
+
+Route::post('/send-message', [MessageController::class, 'sendMessage'])
+    ->middleware(['auth', 'verified'])
+    ->name('send-message');
     
 
 Route::get('/test-page', function () {
