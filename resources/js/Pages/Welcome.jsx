@@ -50,58 +50,41 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 <section
                     className="px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-10"
                     style={{
-
                         // backgroundImage: "url('images/welcome-bg.jpg')",
                         backgroundImage: "url('images/welcome-bg-2.webp')",
-
-                       
 
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                     }}
                 >
-
-                    <div className="max-w-xl bg-gray-400/50 p-6 rounded-xl">
+                    <div className="max-w-xl bg-white/80 p-6 rounded-xl">
                         <h1
-                            className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-white"
-                            style={{
-                                textShadow: "2px 2px 4px rgba(0,0,0,0.6)",
-                            }}
-
-                  
-
+                            className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-gray-500"
+                            style={{ textShadow: "2px 2px 1px white" }}
                         >
                             Connecting{" "}
                             <span
-                                className="text-blue-300"
-
                                 style={{
                                     textShadow: "2px 2px 1px white",
+                                    color: "#4273c5",
                                 }}
-
-                                
-
                             >
                                 clients
                             </span>{" "}
                             and{" "}
                             <span
-                                className="text-blue-300"
-
                                 style={{
                                     textShadow: "2px 2px 1px white",
+                                    color: "#4273c5",
                                 }}
-
-                                
-
                             >
                                 manufacturers
                             </span>{" "}
                             in one platform
                         </h1>
                         <p
-                            className="text-lg mb-8 text-white"
-                            style={{ textShadow: "1px 1px 1px black" }}
+                            className="text-lg mb-8 text-gray-700"
+                            style={{ textShadow: "1px 1px 1px white" }}
                         >
                             We make it easier and faster to find the right
                             business partner—whether you're a manufacturer or a
@@ -111,18 +94,18 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                         <div className="flex gap-4">
                             <Link
                                 href={route("register")}
-
-                                className="border border-white bg-blue-300/75 text-white px-6 py-3 rounded-xl font-black hover:bg-gray-900 transition"
-
+                                className="border-2 bg-white/70 px-6 py-3 rounded-xl font-black transition"
+                                style={{
+                                    borderColor: "#4273c5",
+                                    color: "#4273c5",
+                                }}
                             >
                                 Get Started
                             </Link>
 
                             <a
                                 href="#learnMore"
-
-                                className="border border-white text-white font-medium px-6 py-3 rounded-xl hover:bg-white hover:text-black transition"
-
+                                className="border-2 border-gray-700 text-gray-700 font-black px-6 py-3 rounded-xl hover:bg-white hover:text-black transition"
                             >
                                 Learn More
                             </a>

@@ -33,7 +33,7 @@ export default function Dashboard() {
                             <>
                                 <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
                                     <div className="font-bold text-md flex items-center mb-3">
-                                        Total Inquiries
+                                        My Inquiries
                                     </div>
                                     <hr className="border-t-1 border-blue-400" />
                                     <div className="font-extrabold mt-3">
@@ -50,7 +50,7 @@ export default function Dashboard() {
 
                                 <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
                                     <div className="font-bold text-md flex items-center mb-3">
-                                        Total Offers
+                                        Offers
                                     </div>
                                     <hr className="border-t-1 border-blue-400" />
                                     <div className="font-extrabold mt-3">
@@ -67,7 +67,7 @@ export default function Dashboard() {
 
                                 <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
                                     <div className="font-bold text-md flex items-center mb-3">
-                                        Total Orders
+                                        My Orders
                                     </div>
                                     <hr className="border-t-1 border-blue-400" />
                                     <div className="font-extrabold mt-3">
@@ -86,27 +86,27 @@ export default function Dashboard() {
 
                         {user.role == "manufacturer" && (
                             <>
-                                <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
+                                <div className="border-l-4 border-pink-400 text-pink-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
                                     <div className="font-bold text-md flex items-center mb-3">
                                         Total Offers to Customers
                                     </div>
-                                    <hr className="border-t-1 border-blue-400" />
+                                    <hr className="border-t-1 border-pink-400" />
                                     <div className="font-extrabold mt-3">
                                         <div className="flex items-center justify-center gap-3">
                                             <div className="text-[30px]">
                                                 <FaPersonChalkboard />
                                             </div>
-                                            <div className="text-[50px] text-blue-1000">
+                                            <div className="text-[50px] text-pink-1000">
                                                 {props.manufacturerOffersCount}
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
+                                <div className="border-l-4 border-pink-400 text-pink-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
                                     <div className="font-bold text-md flex items-center mb-3">
                                         Total Orders From Customers
                                     </div>
-                                    <hr className="border-t-1 border-blue-400" />
+                                    <hr className="border-t-1 border-pink-400" />
                                     <div className="font-extrabold mt-3">
                                         <div className="flex items-center justify-center gap-3">
                                             <div className="text-[30px]">

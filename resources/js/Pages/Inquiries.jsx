@@ -45,12 +45,14 @@ export default function Inquiries() {
                         Inquiries
                     </h2>
                 ) : (
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center">
                         <h2 className="text-xl font-semibold leading-tight text-gray-800">
                             Inquiries
                         </h2>
 
-                        <PostInquiryForm user={user} userList={userList} />
+                        <div className="ml-4">
+                            <PostInquiryForm user={user} userList={userList} />
+                        </div>
                     </div>
                 )
             }
