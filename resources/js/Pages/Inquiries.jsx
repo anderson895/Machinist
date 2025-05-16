@@ -38,6 +38,12 @@ export default function Inquiries() {
             );
         }
 
+        if (queryFilter === "offered-inquiries") {
+            return inquiry.offer_threads?.some(
+                (thread) => thread.user_id === user.id
+            );
+        }
+
         return true;
     });
 
