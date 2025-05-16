@@ -14,8 +14,12 @@ export default function Inquiries() {
     const userList = usePage().props.users;
     const inquiries = usePage().props.inquiries;
 
+    const queryFilter = usePage().props.queryFilter;
+
+    console.log(usePage().props);
+
     const [filter, setFilter] = useState(
-        user.role == "user" ? "my inquiries" : "all"
+        user.role == "user" || queryFilter == "my-inquiry" ? "my inquiries" : "all"
     );
 
     const filteredInquiries = inquiries.filter((inquiry) => {

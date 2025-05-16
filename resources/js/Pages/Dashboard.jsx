@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, usePage, Link } from "@inertiajs/react";
 
 import { FaPersonCircleQuestion } from "react-icons/fa6";
 import { MdLocalOffer } from "react-icons/md";
@@ -32,20 +32,26 @@ export default function Dashboard() {
                             user.role == "manufacturer") && (
                             <>
                                 <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
-                                    <div className="font-bold text-md flex items-center mb-3">
-                                        My Inquiries
-                                    </div>
-                                    <hr className="border-t-1 border-blue-400" />
-                                    <div className="font-extrabold mt-3">
-                                        <div className="flex items-center justify-center gap-3">
-                                            <div className="text-[30px]">
-                                                <FaPersonCircleQuestion />
-                                            </div>
-                                            <div className="text-[50px] text-blue-1000">
-                                                {props.inquiriesCount}
+                                    <Link
+                                        href={route("inquiries", {
+                                            filter: "my-inquiry",
+                                        })}
+                                    >
+                                        <div className="font-bold text-md flex items-center mb-3">
+                                            My Inquiries
+                                        </div>
+                                        <hr className="border-t-1 border-blue-400" />
+                                        <div className="font-extrabold mt-3">
+                                            <div className="flex items-center justify-center gap-3">
+                                                <div className="text-[30px]">
+                                                    <FaPersonCircleQuestion />
+                                                </div>
+                                                <div className="text-[50px] text-blue-1000">
+                                                    {props.inquiriesCount}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
 
                                 <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
@@ -66,20 +72,22 @@ export default function Dashboard() {
                                 </div>
 
                                 <div className="border-l-4 border-blue-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
-                                    <div className="font-bold text-md flex items-center mb-3">
-                                        My Orders
-                                    </div>
-                                    <hr className="border-t-1 border-blue-400" />
-                                    <div className="font-extrabold mt-3">
-                                        <div className="flex items-center justify-center gap-3">
-                                            <div className="text-[30px]">
-                                                <AiOutlineProduct />
-                                            </div>
-                                            <div className="text-[50px] text-blue-1000">
-                                                {props.ordersCount}
+                                    <Link href={route("my-orders")}>
+                                        <div className="font-bold text-md flex items-center mb-3">
+                                            My Orders
+                                        </div>
+                                        <hr className="border-t-1 border-blue-400" />
+                                        <div className="font-extrabold mt-3">
+                                            <div className="flex items-center justify-center gap-3">
+                                                <div className="text-[30px]">
+                                                    <AiOutlineProduct />
+                                                </div>
+                                                <div className="text-[50px] text-blue-1000">
+                                                    {props.ordersCount}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             </>
                         )}
@@ -103,22 +111,24 @@ export default function Dashboard() {
                                     </div>
                                 </div>
                                 <div className="border-l-4 border-pink-400 text-pink-400 overflow-hidden bg-white shadow-sm rounded-lg p-3">
-                                    <div className="font-bold text-md flex items-center mb-3">
-                                        Total Orders From Customers
-                                    </div>
-                                    <hr className="border-t-1 border-pink-400" />
-                                    <div className="font-extrabold mt-3">
-                                        <div className="flex items-center justify-center gap-3">
-                                            <div className="text-[30px]">
-                                                <FaCartShopping />
-                                            </div>
-                                            <div className="text-[50px] text-blue-1000">
-                                                {
-                                                    props.ordersToManufacturerCount
-                                                }
+                                    <Link href={route("orders")}>
+                                        <div className="font-bold text-md flex items-center mb-3">
+                                            Total Orders From Customers
+                                        </div>
+                                        <hr className="border-t-1 border-pink-400" />
+                                        <div className="font-extrabold mt-3">
+                                            <div className="flex items-center justify-center gap-3">
+                                                <div className="text-[30px]">
+                                                    <FaCartShopping />
+                                                </div>
+                                                <div className="text-[50px] text-blue-1000">
+                                                    {
+                                                        props.ordersToManufacturerCount
+                                                    }
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </Link>
                                 </div>
                             </>
                         )}

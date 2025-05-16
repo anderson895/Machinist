@@ -21,7 +21,7 @@ use App\Models\Order;
 class InquiryController extends Controller
 {
     
-    public function get()
+    public function get(Request $request)
     {
         $inquiries = Inquiry::with(['files', 'user', 'offerThreads.user', 'offerThreads.offers', 'allowedViewers.user'])->orderBy('created_at', 'desc')->get();
         $users = User::where('role', 'manufacturer')
@@ -30,7 +30,8 @@ class InquiryController extends Controller
 
         return Inertia::render('Inquiries', [
             'inquiries' => $inquiries,
-            'users' => $users
+            'users' => $users,
+            'queryFilter' => $request->query('filter')
         ]);
     }
 
