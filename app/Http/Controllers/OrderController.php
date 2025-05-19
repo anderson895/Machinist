@@ -75,11 +75,18 @@ class OrderController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|exists:offers,id',
+            'purchase_order' => 'required|file|mimes:pdf|max:10240'
         ]);
+
+        $file = $request->file('purchase_order');
+        $extension = $file->getClientOriginalExtension();
+        $filename = 'order-' . uniqid() . '.' . $extension;
+        $file->move(public_path('uploads'), $filename);
 
         $order = Order::create([
             'offer_id' => $validated['id'],
-            'status' => 'Pending'
+            'status' => 'Pending',
+            'purchase_order' => $filename
         ]);
 
         return redirect()->back()->with('success', 'Order submitted successfully!');

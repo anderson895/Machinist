@@ -14,8 +14,12 @@ export default function Inquiries() {
     const userList = usePage().props.users;
     const inquiries = usePage().props.inquiries;
 
+    const queryFilter = usePage().props.queryFilter;
+
+    console.log(usePage().props);
+
     const [filter, setFilter] = useState(
-        user.role == "user" ? "my inquiries" : "all"
+        user.role == "user" || queryFilter == "my-inquiry" ? "my inquiries" : "all"
     );
 
     const filteredInquiries = inquiries.filter((inquiry) => {
@@ -34,6 +38,12 @@ export default function Inquiries() {
             );
         }
 
+        if (queryFilter === "offered-inquiries") {
+            return inquiry.offer_threads?.some(
+                (thread) => thread.user_id === user.id
+            );
+        }
+
         return true;
     });
 
@@ -45,12 +55,14 @@ export default function Inquiries() {
                         Inquiries
                     </h2>
                 ) : (
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center">
                         <h2 className="text-xl font-semibold leading-tight text-gray-800">
                             Inquiries
                         </h2>
 
-                        <PostInquiryForm user={user} userList={userList} />
+                        <div className="ml-4">
+                            <PostInquiryForm user={user} userList={userList} />
+                        </div>
                     </div>
                 )
             }

@@ -34,6 +34,14 @@ export default function InquiryComponent({ inquiry, userList }) {
                         <div>
                             <div className="text-lg font-bold">
                                 {inquiry.user.name}
+                                {inquiry.user.role == "manufacturer" && (
+                                    <span className="ml-1">
+                                        -
+                                        <span className="ml-1 text-sm">
+                                            {inquiry.user.contact_person}
+                                        </span>
+                                    </span>
+                                )}
                             </div>
                             <div className="text-xs text-gray-500">
                                 {new Date(inquiry.created_at).toLocaleString()}
@@ -117,7 +125,10 @@ export default function InquiryComponent({ inquiry, userList }) {
 
                         {user.role != "admin" && user.id == inquiry.user.id && (
                             <>
-                                <UpdateInquiryForm inquiry={inquiry} userList={userList} />
+                                <UpdateInquiryForm
+                                    inquiry={inquiry}
+                                    userList={userList}
+                                />
                             </>
                         )}
                     </div>
