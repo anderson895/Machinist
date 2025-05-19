@@ -296,6 +296,24 @@ export default function OrderDetails() {
                                                 </ul>
                                             </div>
                                         ))}
+
+                                        <div className="mb-3">
+                                            <div className="text-xs font-bold m-0">
+                                                Purchase Order:
+                                            </div>
+                                            <ul>
+                                                <div>
+                                                    <a
+                                                        href={`/uploads/${order.purchase_order}`}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="m-0 mb-1 text-xs inline-block text-blue-600 hover:underline"
+                                                    >
+                                                        {order.purchase_order}
+                                                    </a>
+                                                </div>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
