@@ -84,6 +84,27 @@ export default function AuthenticatedLayout({ header, children }) {
                                         >
                                             Messages
                                         </NavLink>
+
+                                        {(user.role == "user" ||
+                                            user.role == "manufacturer") && (
+                                            <NavLink
+                                                href={route("help")}
+                                                active={route().current("help")}
+                                            >
+                                                Help
+                                            </NavLink>
+                                        )}
+
+                                        {user.role == "admin" && (
+                                            <NavLink
+                                                href={route("reports")}
+                                                active={route().current(
+                                                    "reports"
+                                                )}
+                                            >
+                                                Reports
+                                            </NavLink>
+                                        )}
                                     </div>
                                 </>
                             )}
@@ -233,6 +254,25 @@ export default function AuthenticatedLayout({ header, children }) {
                             >
                                 Messages
                             </ResponsiveNavLink>
+
+                            {(user.role == "user" ||
+                                user.role == "manufacturer") && (
+                                <ResponsiveNavLink
+                                    href={route("help")}
+                                    active={route().current("help")}
+                                >
+                                    Help
+                                </ResponsiveNavLink>
+                            )}
+
+                            {user.role == "admin" && (
+                                <ResponsiveNavLink
+                                    href={route("reports")}
+                                    active={route().current("reports")}
+                                >
+                                    Reports
+                                </ResponsiveNavLink>
+                            )}
                         </div>
                     )}
 
