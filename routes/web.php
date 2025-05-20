@@ -15,6 +15,7 @@ use App\Http\Controllers\InquiryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\HelpController;
 
 
 Route::get('/', function () {
@@ -131,6 +132,19 @@ Route::post('/send-message', [MessageController::class, 'sendMessage'])
     ->middleware(['auth', 'verified'])
     ->name('send-message');
     
+
+Route::get('/help', function(){
+    return Inertia::render('Help');
+})->middleware(['auth', 'verified'])->name('help');
+
+Route::post('/post-report', [HelpController::class, 'storeHelpReport'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':user,manufacturer'])
+    ->name('post-report');
+
+Route::get('/reports', [HelpController::class, 'viewHelpReports'])
+    ->middleware(['auth', 'verified', RoleMiddleware::class . ':admin'])
+    ->name('reports');
+
 
 Route::get('/test-page', function () {
     return Inertia::render('TestPage');
